@@ -26,10 +26,10 @@ const LivePromptImprovementTool = () => {
 
   const improvementSuggestions = {
     product: [
-      { id: 'audience', text: 'What do you know about your audience that AI needs to understand?', placeholder: 'e.g., My Grade 10 students struggle with abstract concepts but love hands-on activities' },
-      { id: 'context', text: 'What matters about your situation that might not be obvious?', placeholder: 'e.g., I only have 45 minutes, half my students were absent yesterday, limited tech access' },
-      { id: 'purpose', text: 'What is your specific goal that only you can define?', placeholder: 'e.g., I want them to see the relevance to their lives, not just memorize facts' },
-      { id: 'constraints', text: 'What requirements do you need to work within?', placeholder: 'e.g., Must align with our district standards and be appropriate for our community values' }
+      { id: 'audience', text: 'Define your audience with specific, actionable details: Who are they? What are their current knowledge levels, learning preferences, and common challenges?', placeholder: 'Be specific: My Grade 10 biology students - 70% English learners, prefer visual/hands-on learning, struggle with abstract scientific concepts, motivated by real-world connections. Class size: 28 students, mixed ability levels.' },
+      { id: 'context', text: 'Provide situational context that directly impacts your approach: What environmental factors, timing constraints, or recent events should inform the AI\'s recommendations?', placeholder: 'Context that matters: 45-minute class period, following a 3-day weekend so re-engagement needed, limited lab equipment (6 microscopes for 28 students), building science fair projects due next month, recent unit on cellular structure.' },
+      { id: 'purpose', text: 'State your specific, measurable outcome: What exact change in knowledge, behavior, or skill do you want to achieve, and how will you recognize success?', placeholder: 'Specific learning outcome: Students will be able to explain the process of photosynthesis using at least 3 key vocabulary terms AND make connections to at least 2 real-world examples from their own lives. Success = 80% can do this in exit ticket.' },
+      { id: 'constraints', text: 'List all non-negotiable requirements and limitations: What standards, policies, resources, or boundaries must the AI work within?', placeholder: 'Hard constraints: Must align with NGSS standard 5-LS1-1, appropriate for diverse family values in our community, materials budget under $50, accessible for students with disabilities, completed in one 45-min class period, follows our school\'s inquiry-based learning model.' }
     ],
     process: [
       { id: 'approach', text: 'How do you want AI to work for you, not the other way around?', placeholder: 'e.g., Start with engagement, then build understanding - that&apos;s how I teach best' },
