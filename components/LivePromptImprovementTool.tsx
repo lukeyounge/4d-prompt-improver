@@ -26,10 +26,42 @@ const LivePromptImprovementTool = () => {
 
   const improvementSuggestions = {
     product: [
-      { id: 'audience', text: 'Define your audience with specific, actionable details: Who are they? What are their current knowledge levels, learning preferences, and common challenges?', placeholder: 'Be specific: My Grade 10 biology students - 70% English learners, prefer visual/hands-on learning, struggle with abstract scientific concepts, motivated by real-world connections. Class size: 28 students, mixed ability levels.' },
-      { id: 'context', text: 'Provide situational context that directly impacts your approach: What environmental factors, timing constraints, or recent events should inform the AI\'s recommendations?', placeholder: 'Context that matters: 45-minute class period, following a 3-day weekend so re-engagement needed, limited lab equipment (6 microscopes for 28 students), building science fair projects due next month, recent unit on cellular structure.' },
-      { id: 'purpose', text: 'State your specific, measurable outcome: What exact change in knowledge, behavior, or skill do you want to achieve, and how will you recognize success?', placeholder: 'Specific learning outcome: Students will be able to explain the process of photosynthesis using at least 3 key vocabulary terms AND make connections to at least 2 real-world examples from their own lives. Success = 80% can do this in exit ticket.' },
-      { id: 'constraints', text: 'List all non-negotiable requirements and limitations: What standards, policies, resources, or boundaries must the AI work within?', placeholder: 'Hard constraints: Must align with NGSS standard 5-LS1-1, appropriate for diverse family values in our community, materials budget under $50, accessible for students with disabilities, completed in one 45-min class period, follows our school\'s inquiry-based learning model.' }
+      {
+        id: 'context',
+        technique: 'Give Context',
+        text: 'What do you need and why? Share background that helps the AI understand your situation.',
+        placeholder: 'Example: Create a lesson plan for teaching photosynthesis to Grade 10 biology students. This is important because they struggled with cellular respiration last week and need to see the connection. Background: 70% English learners, prefer hands-on activities, 45-minute periods, limited lab equipment.'
+      },
+      {
+        id: 'examples',
+        technique: 'Show Examples',
+        text: 'Show what you want. Describe the format, style, or type of output you\'re looking for.',
+        placeholder: 'Example: I want the lesson plan formatted like this: 1) Hook (5 min engaging question), 2) Direct instruction (15 min with visuals), 3) Guided practice (20 min hands-on activity), 4) Closure (5 min exit ticket). Use simple, clear language appropriate for ELL students.'
+      },
+      {
+        id: 'constraints',
+        technique: 'Specify Constraints',
+        text: 'What are your requirements? List any limits, formats, or must-haves the AI should follow.',
+        placeholder: 'Example: The lesson plan must: be exactly 45 minutes, include 3 differentiation strategies, align with NGSS standard 5-LS1-1, use materials costing under $20, include formative assessment, be accessible for students with disabilities.'
+      },
+      {
+        id: 'steps',
+        technique: 'Break Into Steps',
+        text: 'How should the AI approach this? Walk it through the steps or process you want it to follow.',
+        placeholder: 'Example: First, consider what students already know about plants from previous units. Then, identify the most important concepts to focus on. Next, choose activities that connect to their lives. Finally, design an assessment that shows real understanding, not just memorization.'
+      },
+      {
+        id: 'thinking',
+        technique: 'Ask AI to Think First',
+        text: 'What should the AI consider first? Ask it to think through key questions before responding.',
+        placeholder: 'Example: Before creating the lesson plan, think about: What misconceptions do students typically have about photosynthesis? How can I make this abstract process feel concrete and relevant? What prior knowledge can I build on? How will I know if students truly understand vs. just memorized?'
+      },
+      {
+        id: 'role',
+        technique: 'Define AI Role/Tone',
+        text: 'How should the AI communicate? Tell it what role to play and what tone to use.',
+        placeholder: 'Example: Act as an experienced biology teacher who specializes in ELL instruction. Be collaborative and practical - offer options rather than lecture. Keep explanations brief and focus on what will actually work in my classroom. Ask clarifying questions if you need more details.'
+      }
     ],
     process: [
       { id: 'approach', text: 'How do you want AI to work for you, not the other way around?', placeholder: 'e.g., Start with engagement, then build understanding - that&apos;s how I teach best' },
@@ -100,13 +132,47 @@ const LivePromptImprovementTool = () => {
     const hasPerformance = selectedImprovements.performance.length > 0;
 
     if (hasProduct) {
-      sections.push('\n**Context & Requirements:**');
-      selectedImprovements.product.forEach(id => {
-        const userInput = improvementInputs[id];
-        if (userInput && userInput.trim()) {
-          sections.push(`- ${userInput}`);
-        }
-      });
+      const productInputs = selectedImprovements.product.map(id => ({
+        id,
+        input: improvementInputs[id],
+        technique: improvementSuggestions.product.find(item => item.id === id)?.technique
+      })).filter(item => item.input && item.input.trim());
+
+      if (productInputs.some(item => item.id === 'context')) {
+        const contextInput = productInputs.find(item => item.id === 'context');
+        sections.push('\n**Context & Request:**');
+        sections.push(`${contextInput.input}`);
+      }
+
+      if (productInputs.some(item => item.id === 'examples')) {
+        const examplesInput = productInputs.find(item => item.id === 'examples');
+        sections.push('\n**Examples to Follow:**');
+        sections.push(`${examplesInput.input}`);
+      }
+
+      if (productInputs.some(item => item.id === 'constraints')) {
+        const constraintsInput = productInputs.find(item => item.id === 'constraints');
+        sections.push('\n**Constraints:**');
+        sections.push(`${constraintsInput.input}`);
+      }
+
+      if (productInputs.some(item => item.id === 'steps')) {
+        const stepsInput = productInputs.find(item => item.id === 'steps');
+        sections.push('\n**Step-by-Step Approach:**');
+        sections.push(`${stepsInput.input}`);
+      }
+
+      if (productInputs.some(item => item.id === 'thinking')) {
+        const thinkingInput = productInputs.find(item => item.id === 'thinking');
+        sections.push('\n**Think First:**');
+        sections.push(`${thinkingInput.input}`);
+      }
+
+      if (productInputs.some(item => item.id === 'role')) {
+        const roleInput = productInputs.find(item => item.id === 'role');
+        sections.push('\n**AI Role & Communication:**');
+        sections.push(`${roleInput.input}`);
+      }
     }
 
     if (hasProcess) {
@@ -165,14 +231,58 @@ const LivePromptImprovementTool = () => {
   if (currentStep === 'basic') {
     return (
       <div className="max-w-4xl mx-auto p-6 bg-white min-h-screen">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Bring Your Expertise to AI</h1>
-          <p className="text-gray-600">Use the 4D Framework to assert your professional knowledge and make AI work for you</p>
+        <div className="mb-8 text-center">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">AI Communication for School Leaders</h1>
+          <p className="text-xl text-gray-700 mb-6">Master the Description phase of the 4D Framework</p>
         </div>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
-          <h2 className="text-xl font-semibold text-blue-900 mb-3">Start with Your Basic Prompt</h2>
-          <p className="text-blue-800 mb-4">Enter a simple prompt below. We&apos;ll show you how to improve it by bringing your expertise and professional judgment to guide AI effectively.</p>
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-8 mb-8">
+          <h2 className="text-2xl font-semibold text-blue-900 mb-4">Beyond Writing Prompts: Creating Collaborative Communication</h2>
+
+          <p className="text-gray-800 mb-6 text-lg">Description goes beyond simply writing great prompts. It's about creating a collaborative environment where both you and the AI can work effectively together as interactive partners.</p>
+
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+            <p className="text-yellow-800 text-sm font-medium">
+              <strong>Remember:</strong> AI can't read your mind. The quality of your results often comes down to how clearly you articulate your needs, preferred approach, and desired interaction style.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-6">
+            <div className="bg-white rounded-lg p-6 border border-blue-100 shadow-sm">
+              <div className="bg-blue-500 text-white p-3 rounded-lg mb-4 w-12 h-12 flex items-center justify-center mx-auto">
+                <span className="text-xl font-bold">1</span>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Product Description</h3>
+              <p className="text-gray-600 text-sm">Clearly define what you want in terms of outputs, format, audience, and style. Be specific about the end result.</p>
+            </div>
+
+            <div className="bg-white rounded-lg p-6 border border-green-100 shadow-sm">
+              <div className="bg-green-500 text-white p-3 rounded-lg mb-4 w-12 h-12 flex items-center justify-center mx-auto">
+                <span className="text-xl font-bold">2</span>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Process Description</h3>
+              <p className="text-gray-600 text-sm">Guide how the AI approaches your request. The methodology can be as important as the end goal.</p>
+            </div>
+
+            <div className="bg-white rounded-lg p-6 border border-purple-100 shadow-sm">
+              <div className="bg-purple-500 text-white p-3 rounded-lg mb-4 w-12 h-12 flex items-center justify-center mx-auto">
+                <span className="text-xl font-bold">3</span>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Performance Description</h3>
+              <p className="text-gray-600 text-sm">Define behavioral aspects: Should the AI be concise or detailed? Challenging or supportive? Match your leadership style.</p>
+            </div>
+          </div>
+
+          <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+            <p className="text-green-800 text-sm">
+              <strong>Key Insight:</strong> AI systems are interactive partners, not databases or vending machines. Clear communication upfront saves time and leads to better results.
+            </p>
+          </div>
+        </div>
+
+        <div className="bg-white border border-gray-200 rounded-lg p-6 mb-8 shadow-sm">
+          <h2 className="text-xl font-semibold text-gray-900 mb-3">Practice the Three Components</h2>
+          <p className="text-gray-700 mb-4">Start with any request you'd make to an AI system. We'll guide you through describing the Product, Process, and Performance to create more effective collaboration.</p>
 
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -202,15 +312,154 @@ const LivePromptImprovementTool = () => {
             </div>
           </div>
 
-          <button
-            onClick={handleBasicPromptSubmit}
-            disabled={!basicPrompt.trim()}
-            className="flex items-center px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
-          >
-            Improve with 4D Framework
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </button>
         </div>
+
+        {/* Product Description Section */}
+        {basicPrompt.trim() && (
+          <div className="bg-white border border-blue-500 rounded-lg p-6 mb-8 shadow-sm">
+            <div className="flex items-center mb-4">
+              <div className="bg-blue-500 text-white p-2 rounded-lg mr-3">
+                <Target className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">What do you want?</h3>
+                <h4 className="text-sm font-medium text-gray-600 mb-1">Product Description</h4>
+                <p className="text-sm text-blue-600">Use some or all of the six foundational techniques to structure your communication with AI</p>
+              </div>
+            </div>
+            <div className="space-y-3">
+              {improvementSuggestions.product.map((improvement) => (
+                <div key={improvement.id} className="space-y-2">
+                  <button
+                    onClick={() => toggleImprovement('product', improvement)}
+                    className={`w-full text-left p-3 rounded-lg border-2 transition-colors ${
+                      selectedImprovements.product.includes(improvement.id)
+                        ? 'border-blue-500 bg-blue-50'
+                        : 'border-gray-200 hover:border-blue-300'
+                    }`}
+                  >
+                    <div className="flex items-start">
+                      <div className={`w-5 h-5 border-2 rounded mr-3 mt-0.5 flex items-center justify-center ${
+                        selectedImprovements.product.includes(improvement.id)
+                          ? 'border-blue-500 bg-blue-500'
+                          : 'border-gray-300'
+                      }`}>
+                        {selectedImprovements.product.includes(improvement.id) && (
+                          <CheckCircle className="w-3 h-3 text-white" />
+                        )}
+                      </div>
+                      <div>
+                        <div className="flex items-center mb-2">
+                          <span className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded-full mr-2">
+                            {improvement.technique}
+                          </span>
+                        </div>
+                        <p className="font-medium text-gray-800">{improvement.text}</p>
+                      </div>
+                    </div>
+                  </button>
+
+                  {(selectedImprovements.product.includes(improvement.id) && activeInput === improvement.id) && (
+                    <div className="ml-8 space-y-2">
+                      <textarea
+                        value={improvementInputs[improvement.id] || ''}
+                        onChange={(e) => handleImprovementInput(improvement.id, e.target.value)}
+                        placeholder={improvement.placeholder}
+                        className="w-full px-3 py-2 border border-blue-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                        rows={2}
+                      />
+                      <button
+                        onClick={closeInput}
+                        className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600"
+                      >
+                        Done
+                      </button>
+                    </div>
+                  )}
+
+                  {selectedImprovements.product.includes(improvement.id) && improvementInputs[improvement.id] && activeInput !== improvement.id && (
+                    <div className="ml-8 p-2 bg-blue-50 rounded border border-blue-200">
+                      <p className="text-sm text-blue-800">✓ {improvementInputs[improvement.id]}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Prompt Preview */}
+        {basicPrompt.trim() && (
+          <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8 shadow-sm">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Your Evolving Prompt</h3>
+            <div className="bg-white rounded-lg p-4 border border-gray-300">
+              <div className="text-gray-800 whitespace-pre-wrap">
+                {(() => {
+                  const sections = [basicPrompt];
+
+                  const productInputs = selectedImprovements.product.map(id => ({
+                    id,
+                    input: improvementInputs[id],
+                    technique: improvementSuggestions.product.find(item => item.id === id)?.technique
+                  })).filter(item => item.input && item.input.trim());
+
+                  if (productInputs.some(item => item.id === 'context')) {
+                    const contextInput = productInputs.find(item => item.id === 'context');
+                    sections.push('\n**Context & Request:**');
+                    sections.push(`${contextInput.input}`);
+                  }
+
+                  if (productInputs.some(item => item.id === 'examples')) {
+                    const examplesInput = productInputs.find(item => item.id === 'examples');
+                    sections.push('\n**Examples to Follow:**');
+                    sections.push(`${examplesInput.input}`);
+                  }
+
+                  if (productInputs.some(item => item.id === 'constraints')) {
+                    const constraintsInput = productInputs.find(item => item.id === 'constraints');
+                    sections.push('\n**Constraints:**');
+                    sections.push(`${constraintsInput.input}`);
+                  }
+
+                  if (productInputs.some(item => item.id === 'steps')) {
+                    const stepsInput = productInputs.find(item => item.id === 'steps');
+                    sections.push('\n**Step-by-Step Approach:**');
+                    sections.push(`${stepsInput.input}`);
+                  }
+
+                  if (productInputs.some(item => item.id === 'thinking')) {
+                    const thinkingInput = productInputs.find(item => item.id === 'thinking');
+                    sections.push('\n**Think First:**');
+                    sections.push(`${thinkingInput.input}`);
+                  }
+
+                  if (productInputs.some(item => item.id === 'role')) {
+                    const roleInput = productInputs.find(item => item.id === 'role');
+                    sections.push('\n**AI Role & Communication:**');
+                    sections.push(`${roleInput.input}`);
+                  }
+
+                  return sections.join('\n');
+                })()}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Continue Button */}
+        {basicPrompt.trim() && (
+          <div className="text-center">
+            <button
+              onClick={handleBasicPromptSubmit}
+              disabled={!basicPrompt.trim()}
+              className="flex items-center px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors text-lg font-semibold mx-auto"
+            >
+              <Lightbulb className="w-5 h-5 mr-2" />
+              Continue to Process & Performance
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </button>
+          </div>
+        )}
       </div>
     );
   }
@@ -219,17 +468,65 @@ const LivePromptImprovementTool = () => {
     return (
       <div className="max-w-6xl mx-auto p-6 bg-white min-h-screen">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">4D Framework Improvements</h1>
-          <p className="text-gray-600">Select improvements to strengthen your prompt by bringing your professional expertise into the collaboration</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Process & Performance Description</h1>
+          <p className="text-gray-600">Complete your AI communication setup by defining how you want the AI to work and interact with you</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left: Original Prompt */}
           <div>
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Your Basic Prompt</h3>
-              <div className="bg-white rounded p-4 border">
-                <p className="text-gray-800">{basicPrompt}</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Your Enhanced Prompt</h3>
+              <div className="bg-white rounded p-4 border max-h-96 overflow-y-auto">
+                <div className="text-gray-800 whitespace-pre-wrap text-sm">
+                  {(() => {
+                    const sections = [basicPrompt];
+
+                    const productInputs = selectedImprovements.product.map(id => ({
+                      id,
+                      input: improvementInputs[id],
+                      technique: improvementSuggestions.product.find(item => item.id === id)?.technique
+                    })).filter(item => item.input && item.input.trim());
+
+                    if (productInputs.some(item => item.id === 'context')) {
+                      const contextInput = productInputs.find(item => item.id === 'context');
+                      sections.push('\n**Context & Request:**');
+                      sections.push(`${contextInput.input}`);
+                    }
+
+                    if (productInputs.some(item => item.id === 'examples')) {
+                      const examplesInput = productInputs.find(item => item.id === 'examples');
+                      sections.push('\n**Examples to Follow:**');
+                      sections.push(`${examplesInput.input}`);
+                    }
+
+                    if (productInputs.some(item => item.id === 'constraints')) {
+                      const constraintsInput = productInputs.find(item => item.id === 'constraints');
+                      sections.push('\n**Constraints:**');
+                      sections.push(`${constraintsInput.input}`);
+                    }
+
+                    if (productInputs.some(item => item.id === 'steps')) {
+                      const stepsInput = productInputs.find(item => item.id === 'steps');
+                      sections.push('\n**Step-by-Step Approach:**');
+                      sections.push(`${stepsInput.input}`);
+                    }
+
+                    if (productInputs.some(item => item.id === 'thinking')) {
+                      const thinkingInput = productInputs.find(item => item.id === 'thinking');
+                      sections.push('\n**Think First:**');
+                      sections.push(`${thinkingInput.input}`);
+                    }
+
+                    if (productInputs.some(item => item.id === 'role')) {
+                      const roleInput = productInputs.find(item => item.id === 'role');
+                      sections.push('\n**AI Role & Communication:**');
+                      sections.push(`${roleInput.input}`);
+                    }
+
+                    return sections.join('\n');
+                  })()}
+                </div>
               </div>
             </div>
 
@@ -240,78 +537,13 @@ const LivePromptImprovementTool = () => {
                 <h4 className="font-semibold text-green-800">Improvements Selected: {totalSelected}</h4>
               </div>
               <p className="text-green-700 text-sm">
-                Each improvement you select will make your prompt more effective. Try selecting at least one from each category!
+                Complete the final components of effective AI communication. These define how the AI works and interacts with you.
               </p>
             </div>
           </div>
 
-          {/* Right: 4D Improvements */}
+          {/* Right: Process & Performance */}
           <div className="space-y-6">
-            {/* Product Description */}
-            <div className="border-2 border-blue-500 rounded-lg p-6">
-              <div className="flex items-center mb-4">
-                <div className="bg-blue-500 text-white p-2 rounded-lg mr-3">
-                  <Target className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Product Description</h3>
-                  <p className="text-sm text-blue-600">Share what you know - your context, purpose, and professional insight</p>
-                </div>
-              </div>
-              <div className="space-y-3">
-                {improvementSuggestions.product.map((improvement) => (
-                  <div key={improvement.id} className="space-y-2">
-                    <button
-                      onClick={() => toggleImprovement('product', improvement)}
-                      className={`w-full text-left p-3 rounded-lg border-2 transition-colors ${
-                        selectedImprovements.product.includes(improvement.id)
-                          ? 'border-blue-500 bg-blue-50'
-                          : 'border-gray-200 hover:border-blue-300'
-                      }`}
-                    >
-                      <div className="flex items-start">
-                        <div className={`w-5 h-5 border-2 rounded mr-3 mt-0.5 flex items-center justify-center ${
-                          selectedImprovements.product.includes(improvement.id)
-                            ? 'border-blue-500 bg-blue-500'
-                            : 'border-gray-300'
-                        }`}>
-                          {selectedImprovements.product.includes(improvement.id) && (
-                            <CheckCircle className="w-3 h-3 text-white" />
-                          )}
-                        </div>
-                        <div>
-                          <p className="font-medium text-gray-800">{improvement.text}</p>
-                        </div>
-                      </div>
-                    </button>
-
-                    {(selectedImprovements.product.includes(improvement.id) && activeInput === improvement.id) && (
-                      <div className="ml-8 space-y-2">
-                        <textarea
-                          value={improvementInputs[improvement.id] || ''}
-                          onChange={(e) => handleImprovementInput(improvement.id, e.target.value)}
-                          placeholder={improvement.placeholder}
-                          className="w-full px-3 py-2 border border-blue-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                          rows={2}
-                        />
-                        <button
-                          onClick={closeInput}
-                          className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600"
-                        >
-                          Done
-                        </button>
-                      </div>
-                    )}
-
-                    {selectedImprovements.product.includes(improvement.id) && improvementInputs[improvement.id] && activeInput !== improvement.id && (
-                      <div className="ml-8 p-2 bg-blue-50 rounded border border-blue-200">
-                        <p className="text-sm text-blue-800">✓ {improvementInputs[improvement.id]}</p>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
 
             {/* Process Description */}
             <div className="border-2 border-green-500 rounded-lg p-6">
