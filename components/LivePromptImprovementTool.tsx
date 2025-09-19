@@ -41,7 +41,7 @@ const LivePromptImprovementTool = () => {
       {
         id: 'examples',
         technique: 'Show Examples',
-        text: 'Show what you want. Describe the format, style, or type of output you\'re looking for.',
+        text: 'Show what you want. Describe the format, style, or type of output you&apos;re looking for.',
         placeholder: 'Example: I want the lesson plan formatted like this: 1) Hook (5 min engaging question), 2) Direct instruction (15 min with visuals), 3) Guided practice (20 min hands-on activity), 4) Closure (5 min exit ticket). Use simple, clear language appropriate for ELL students.'
       },
       {
@@ -236,16 +236,24 @@ const LivePromptImprovementTool = () => {
     setIsGenerating(true);
     setApiError(null);
 
+    console.log('=== Frontend API Call ===');
+    console.log('Sending Basic Prompt:', basicPrompt);
+    console.log('Sending Enhanced Prompt:', improvedPrompt);
+
     try {
+      const payload = {
+        basicPrompt: basicPrompt,
+        enhancedPrompt: improvedPrompt,
+      };
+
+      console.log('Full API Payload:', payload);
+
       const response = await fetch('/api/claude', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          basicPrompt: basicPrompt,
-          enhancedPrompt: improvedPrompt,
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
@@ -254,11 +262,21 @@ const LivePromptImprovementTool = () => {
       }
 
       const data = await response.json();
+
+      console.log('=== API Response Received ===');
+      console.log('Basic Response Length:', data.basicResponse.text.length);
+      console.log('Enhanced Response Length:', data.enhancedResponse.text.length);
+      console.log('Basic Usage:', data.basicResponse.usage);
+      console.log('Enhanced Usage:', data.enhancedResponse.usage);
+      console.log('Basic Response Preview:', data.basicResponse.text.substring(0, 150) + '...');
+      console.log('Enhanced Response Preview:', data.enhancedResponse.text.substring(0, 150) + '...');
+
       setApiResponses({
         basicResponse: data.basicResponse.text,
         enhancedResponse: data.enhancedResponse.text,
       });
     } catch (error) {
+      console.error('Frontend API Error:', error);
       setApiError(error instanceof Error ? error.message : 'Something went wrong');
     } finally {
       setIsGenerating(false);
@@ -281,11 +299,11 @@ const LivePromptImprovementTool = () => {
         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-8 mb-8">
           <h2 className="text-2xl font-semibold text-blue-900 mb-4">Beyond Writing Prompts: Creating Collaborative Communication</h2>
 
-          <p className="text-gray-800 mb-6 text-lg">Description goes beyond simply writing great prompts. It's about creating a collaborative environment where both you and the AI can work effectively together as interactive partners.</p>
+          <p className="text-gray-800 mb-6 text-lg">Description goes beyond simply writing great prompts. It&apos;s about creating a collaborative environment where both you and the AI can work effectively together as interactive partners.</p>
 
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
             <p className="text-yellow-800 text-sm font-medium">
-              <strong>Remember:</strong> AI can't read your mind. The quality of your results often comes down to how clearly you articulate your needs, preferred approach, and desired interaction style.
+              <strong>Remember:</strong> AI can&apos;t read your mind. The quality of your results often comes down to how clearly you articulate your needs, preferred approach, and desired interaction style.
             </p>
           </div>
 
@@ -324,7 +342,7 @@ const LivePromptImprovementTool = () => {
 
         <div className="bg-white border border-gray-200 rounded-lg p-6 mb-8 shadow-sm">
           <h2 className="text-xl font-semibold text-gray-900 mb-3">Practice the Three Components</h2>
-          <p className="text-gray-700 mb-4">Start with any request you'd make to an AI system. We'll guide you through describing the Product, Process, and Performance to create more effective collaboration.</p>
+          <p className="text-gray-700 mb-4">Start with any request you&apos;d make to an AI system. We&apos;ll guide you through describing the Product, Process, and Performance to create more effective collaboration.</p>
 
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -836,7 +854,7 @@ const LivePromptImprovementTool = () => {
             See the Difference in Action
           </h3>
           <p className="text-purple-800 mb-4">
-            Want to see how much better your enhanced prompt really is? Let's send both prompts to Claude and compare the actual responses.
+            Want to see how much better your enhanced prompt really is? Let&apos;s send both prompts to Claude and compare the actual responses.
           </p>
 
           {!apiResponses && !isGenerating && (
