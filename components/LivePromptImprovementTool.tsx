@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Copy, CheckCircle, Target, Settings, MessageSquare, ArrowRight, Plus, Lightbulb, Zap, Send } from 'lucide-react';
 
 const LivePromptImprovementTool = () => {
@@ -35,6 +35,13 @@ const LivePromptImprovementTool = () => {
   const [currentMessage, setCurrentMessage] = useState('');
   const [isChattingWithClaude, setIsChattingWithClaude] = useState(false);
   const [chatError, setChatError] = useState<string | null>(null);
+
+  // Save chat history to localStorage whenever messages change
+  useEffect(() => {
+    if (messages.length > 0) {
+      localStorage.setItem('chatHistory', JSON.stringify(messages));
+    }
+  }, [messages]);
 
   const improvementSuggestions = {
     product: [
@@ -1090,13 +1097,16 @@ const LivePromptImprovementTool = () => {
           )}
         </div>
 
-        <div className="flex justify-center mb-8">
-          <button
-            onClick={resetTool}
-            className="flex items-center px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+        <div className="flex flex-col items-center gap-4 mb-8">
+          <div className="border-t border-gray-200 w-full max-w-md my-4"></div>
+
+          <a
+            href="/discernment"
+            className="flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-lg font-semibold"
           >
-            Try Another Prompt
-          </button>
+            <ArrowRight className="w-5 h-5 mr-2" />
+            Click here to move on to discernment exercise
+          </a>
         </div>
       </div>
     );
