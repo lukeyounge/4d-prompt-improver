@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     // Make parallel requests to Claude for both prompts
     const [basicResponse, enhancedResponse] = await Promise.all([
       anthropic.messages.create({
-        model: 'claude-3-5-sonnet-20241022',
+        model: 'claude-sonnet-4-20250514',
         max_tokens: 1000,
         messages: [
           {
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
         ]
       }),
       anthropic.messages.create({
-        model: 'claude-3-5-sonnet-20241022',
+        model: 'claude-sonnet-4-20250514',
         max_tokens: 1000,
         messages: [
           {
