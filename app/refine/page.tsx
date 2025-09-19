@@ -319,11 +319,46 @@ const RefinePage = () => {
       </div>
 
       <div className="mb-8 text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Refine Your Prompt</h1>
-        <p className="text-xl text-gray-600">Use the 4D Framework to enhance your AI collaboration</p>
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">Let's Improve your AI communication</h1>
+        <p className="text-xl text-gray-600">Let's work through the three parts of Description to enhance your AI communication - Product, Process and Performance</p>
       </div>
 
       <div className="max-w-4xl mx-auto">
+        {/* Improvement Tips */}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
+          <h2 className="text-lg font-semibold text-blue-900 mb-4">Tips for Better AI Communication</h2>
+          <div className="grid md:grid-cols-2 gap-4 text-sm text-blue-800">
+            <div className="space-y-2">
+              <div className="flex items-start">
+                <span className="font-medium text-blue-900 mr-2">1.</span>
+                <span><strong>Give context:</strong> Be specific about what you want, why you want it, and relevant background</span>
+              </div>
+              <div className="flex items-start">
+                <span className="font-medium text-blue-900 mr-2">2.</span>
+                <span><strong>Show examples:</strong> Demonstrate the output style or format you're looking for</span>
+              </div>
+              <div className="flex items-start">
+                <span className="font-medium text-blue-900 mr-2">3.</span>
+                <span><strong>Specify constraints:</strong> Clearly define format, length, and other output requirements</span>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <div className="flex items-start">
+                <span className="font-medium text-blue-900 mr-2">4.</span>
+                <span><strong>Break complex tasks into steps:</strong> Guide the AI through multi-step reasoning</span>
+              </div>
+              <div className="flex items-start">
+                <span className="font-medium text-blue-900 mr-2">5.</span>
+                <span><strong>Ask the AI to think first:</strong> Give space for the AI to work through its process</span>
+              </div>
+              <div className="flex items-start">
+                <span className="font-medium text-blue-900 mr-2">6.</span>
+                <span><strong>Define the AI's role or tone:</strong> Specify how you want the AI to communicate</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Show the basic prompt */}
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8">
           <h2 className="text-lg font-semibold text-gray-900 mb-3">Your Starting Prompt</h2>

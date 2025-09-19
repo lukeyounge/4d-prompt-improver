@@ -8,11 +8,13 @@ export default function PromptsPage() {
   const [basicPrompt, setBasicPrompt] = useState('');
 
   const examplePrompts = [
-    "Create a lesson plan for teaching photosynthesis.",
-    "Help me write a professional email to request time off.",
-    "Design a team-building activity for remote workers.",
-    "Explain quantum computing in simple terms.",
-    "Create a budget plan for a small business."
+    "How do I get teachers who are nervous or apathetic about AI to get on board?",
+    "I need to create a vision for AI use in my school",
+    "Give me a one page briefing for parents in AI in education",
+    "How do I manage the excitement around AI in a cautious way?",
+    "How do I explain plagiarism and responsible AI use to students?",
+    "What questions should I ask when evaluating an AI tool for my school?",
+    "What examples from other schools could inspire our own AI strategy?"
   ];
 
   const handleContinue = () => {
@@ -45,23 +47,24 @@ export default function PromptsPage() {
       </div>
 
       <div className="mb-8 text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">AI Fluency Tool</h1>
-        <p className="text-xl text-gray-600 mb-2">Bring Your Expertise to AI</p>
-        <p className="text-gray-500">Use the 4D Framework to transform basic prompts into powerful AI collaborations</p>
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">School Leaders Exploring Description</h1>
+        <p className="text-xl text-gray-600">One D of the 4D Framework for AI Fluency</p>
       </div>
 
       <div className="max-w-4xl mx-auto">
         {/* Framework Overview */}
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">The 4D Framework</h2>
-          <div className="grid md:grid-cols-3 gap-6">
+          <h2 className="text-2xl font-semibold text-gray-900 mb-4">Three Components of Description</h2>
+          <h3 className="text-lg font-medium text-gray-800 mb-6">Description is about communicating with AI in ways that create a productive collaborative environment.</h3>
+          <div className="grid md:grid-cols-1 gap-6">
             <div className="flex items-start">
               <div className="bg-green-100 p-2 rounded-lg mr-3">
                 <Target className="w-5 h-5 text-green-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-green-900">Product</h3>
-                <p className="text-sm text-green-800">What & Why - Define context, purpose, and constraints</p>
+                <h4 className="font-semibold text-green-900">Product Description</h4>
+                <p className="text-sm text-gray-600 italic mb-1">"What we want and why we want it"</p>
+                <p className="text-sm text-green-800">Clearly defining what you want in terms of outputs, format, audience, and style</p>
               </div>
             </div>
             <div className="flex items-start">
@@ -69,8 +72,9 @@ export default function PromptsPage() {
                 <Settings className="w-5 h-5 text-blue-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-blue-900">Process</h3>
-                <p className="text-sm text-blue-800">How - Specify approach, methodology, and steps</p>
+                <h4 className="font-semibold text-blue-900">Process Description</h4>
+                <p className="text-sm text-gray-600 italic mb-1">"How we want it done"</p>
+                <p className="text-sm text-blue-800">Guide how the AI approaches your request</p>
               </div>
             </div>
             <div className="flex items-start">
@@ -78,18 +82,27 @@ export default function PromptsPage() {
                 <MessageSquare className="w-5 h-5 text-purple-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-purple-900">Performance</h3>
-                <p className="text-sm text-purple-800">How We Work - Set collaboration expectations</p>
+                <h4 className="font-semibold text-purple-900">Performance Description</h4>
+                <p className="text-sm text-gray-600 italic mb-1">"How we want to work with AI"</p>
+                <p className="text-sm text-purple-800">Define how AI should behave eg concise or detailed, challenging or supportive</p>
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Focus Question */}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
+          <h2 className="text-xl font-semibold text-blue-900 mb-4">How can I navigate AI implementation at my school?</h2>
+          <p className="text-blue-800">
+            As you explore how to better communicate with AI, let's use this question as a focus.
+          </p>
         </div>
 
         {/* Prompt Input */}
         <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Start with Your Basic Prompt</h2>
           <p className="text-gray-600 mb-4">
-            Enter a simple request you might make to an AI assistant. We'll help you enhance it using the 4D Framework.
+            Think about an issue you are having around AI implementation at your school (or an issue you envisage). Write a simple instruction or question to AI and then we'll do some enhancing.
           </p>
 
           <textarea
