@@ -162,7 +162,7 @@ Please provide a thoughtful analysis covering these areas.`
 
           {!analysis && !isAnalyzing && (
             <p className="text-gray-600">
-              Click "Analyze Conversation" to get insights about your AI collaboration.
+              Click \\\"Analyze Conversation\\\" to get insights about your AI collaboration.
             </p>
           )}
         </div>

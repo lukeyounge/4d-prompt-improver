@@ -78,7 +78,7 @@ export default function Home() {
         <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Start with Your Basic Prompt</h2>
           <p className="text-gray-600 mb-4">
-            Enter a simple request you might make to an AI assistant. We'll help you enhance it using the 4D Framework.
+            Enter a simple request you might make to an AI assistant. We\\'ll help you enhance it using the 4D Framework.
           </p>
 
           <textarea
@@ -113,7 +113,7 @@ export default function Home() {
                 onClick={() => handleExampleClick(example)}
                 className="w-full text-left px-4 py-2 bg-white border border-blue-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors"
               >
-                <span className="text-blue-800">"{example}"</span>
+                <span className="text-blue-800">\\\"{example}\\\"</span>
               </button>
             ))}
           </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { Copy, CheckCircle, Target, Settings, MessageSquare, ArrowRight, Plus, Lightbulb, Zap, Send, ArrowLeft } from 'lucide-react';
 
 const RefinePage = () => {
@@ -328,7 +329,7 @@ const RefinePage = () => {
       // Lists - item -> <li>item</li>
       .replace(/^[\-\*] (.*$)/gm, '<li>$1</li>')
       // Wrap consecutive <li> in <ul>
-      .replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>')
+      .replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>')
       // Line breaks
       .replace(/\n/g, '<br>');
 
@@ -345,13 +346,13 @@ const RefinePage = () => {
   return (
     <div className="max-w-6xl mx-auto p-6 bg-white min-h-screen">
       <div className="mb-6">
-        <a
+        <Link
           href="/"
           className="flex items-center text-gray-600 hover:text-gray-800 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Start
-        </a>
+        </Link>
       </div>
 
       <div className="mb-8 text-center">
@@ -692,7 +693,7 @@ const RefinePage = () => {
                 {messages.length > 0 && (
                   <div className="mt-4 bg-green-50 border border-green-200 rounded-lg p-3">
                     <p className="text-green-800 text-sm">
-                      Great! You're testing how your enhanced prompt performs. When you're ready, move to the analysis phase to review your conversation.
+                      Great! You\\'re testing how your enhanced prompt performs. When you\\'re ready, move to the analysis phase to review your conversation.
                     </p>
                   </div>
                 )}
@@ -703,13 +704,13 @@ const RefinePage = () => {
             {messages.length > 0 && (
               <div className="flex flex-col items-center gap-4 mb-8 mt-8">
                 <div className="border-t border-gray-200 w-full max-w-md my-4"></div>
-                <a
+                <Link
                   href="/analysis"
                   className="flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-lg font-semibold"
                 >
                   <ArrowRight className="w-5 h-5 mr-2" />
                   Analyze Your Conversation
-                </a>
+                </Link>
               </div>
             )}
           </>

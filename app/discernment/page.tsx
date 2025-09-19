@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { ArrowLeft, Brain, MessageSquare, BarChart3 } from 'lucide-react';
 
 interface Message {
@@ -76,13 +77,13 @@ Please provide a thoughtful analysis covering these areas.`
   return (
     <div className="max-w-6xl mx-auto p-6 bg-white min-h-screen">
       <div className="mb-6">
-        <a
+        <Link
           href="/"
           className="flex items-center text-gray-600 hover:text-gray-800 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Description Tool
-        </a>
+        </Link>
       </div>
 
       <div className="mb-8 text-center">
@@ -162,7 +163,7 @@ Please provide a thoughtful analysis covering these areas.`
 
           {!analysis && !isAnalyzing && (
             <p className="text-gray-600">
-              Click "Analyze Conversation" to get insights about your AI collaboration.
+              Click \\\"Analyze Conversation\\\" to get insights about your AI collaboration.
             </p>
           )}
         </div>
