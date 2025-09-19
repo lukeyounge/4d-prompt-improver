@@ -78,11 +78,11 @@ Please provide a thoughtful analysis covering these areas.`
     <div className="max-w-6xl mx-auto p-6 bg-white min-h-screen">
       <div className="mb-6">
         <Link
-          href="/"
+          href="/analysis"
           className="flex items-center text-gray-600 hover:text-gray-800 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Description Tool
+          Back to Analysis
         </Link>
       </div>
 

@@ -1,7 +1,8 @@
 'use client'
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Users, Clock, CheckCircle, XCircle, Trophy, Play, RotateCcw, Timer } from 'lucide-react';
+import Link from 'next/link';
+import { Users, Clock, CheckCircle, XCircle, Trophy, Play, RotateCcw, Timer, MessageSquare } from 'lucide-react';
 
 interface Scenario {
   id: number;
@@ -377,7 +378,14 @@ const ShouldIDelegateGame: React.FC = () => {
               <RotateCcw className="w-5 h-5" />
               <span>Experience Again</span>
             </button>
-            <p className="text-center text-xs text-gray-500">Ready for your next workshop activity?</p>
+
+            {/* Discreet continue button */}
+            <Link
+              href="/prompts"
+              className="block text-center text-sm text-gray-400 hover:text-gray-600 transition-colors py-2"
+            >
+              Continue to Description →
+            </Link>
           </div>
         </div>
       </div>

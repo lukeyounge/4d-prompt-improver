@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Copy, CheckCircle, Target, Settings, MessageSquare, ArrowRight, Plus, Lightbulb, Zap, Send, ArrowLeft } from 'lucide-react';
+import { Copy, CheckCircle, Target, Settings, MessageSquare, ArrowRight, Plus, Zap, Send, ArrowLeft } from 'lucide-react';
 
 const RefinePage = () => {
   const [basicPrompt, setBasicPrompt] = useState('');
@@ -18,8 +18,6 @@ const RefinePage = () => {
   });
   const [improvementInputs, setImprovementInputs] = useState<{[key: string]: string}>({});
   const [activeInput, setActiveInput] = useState<string | null>(null);
-  const [loadingHelp, setLoadingHelp] = useState<string | null>(null);
-  const [aiSuggestions, setAiSuggestions] = useState<{[key: string]: string}>({});
 
   // Chatbot state
   const [messages, setMessages] = useState<Array<{role: 'user' | 'assistant', content: string}>>([]);
@@ -47,82 +45,47 @@ const RefinePage = () => {
     product: [
       {
         id: 'context',
-        text: 'Add context about your audience, setting, or situation',
-        helpPrompt: 'Help me understand what context I should add for this prompt'
+        text: 'Add context about your audience, setting, or situation'
       },
       {
         id: 'purpose',
-        text: 'Clarify the specific purpose or goal',
-        helpPrompt: 'What purpose or goal should I clarify for this prompt?'
+        text: 'Clarify the specific purpose or goal'
       },
       {
         id: 'constraints',
-        text: 'Specify important constraints or limitations',
-        helpPrompt: 'What constraints or limitations should I consider for this prompt?'
+        text: 'Specify important constraints or limitations'
       }
     ],
     process: [
       {
         id: 'approach',
-        text: 'Describe your preferred approach or methodology',
-        helpPrompt: 'What approach or methodology would work best for this prompt?'
+        text: 'Describe your preferred approach or methodology'
       },
       {
         id: 'sequence',
-        text: 'Outline the sequence or steps you want',
-        helpPrompt: 'What sequence or steps should be included in this prompt?'
+        text: 'Outline the sequence or steps you want'
       },
       {
         id: 'examples',
-        text: 'Request specific examples or formats',
-        helpPrompt: 'What examples or formats would be helpful for this prompt?'
+        text: 'Request specific examples or formats'
       }
     ],
     performance: [
       {
         id: 'collaboration',
-        text: 'Set expectations for how you want to collaborate',
-        helpPrompt: 'How should I set collaboration expectations for this prompt?'
+        text: 'Set expectations for how you want to collaborate'
       },
       {
         id: 'communication',
-        text: 'Specify your preferred communication style',
-        helpPrompt: 'What communication style preferences should I specify?'
+        text: 'Specify your preferred communication style'
       },
       {
         id: 'feedback',
-        text: 'Describe how you want to give and receive feedback',
-        helpPrompt: 'How should feedback be handled in this prompt?'
+        text: 'Describe how you want to give and receive feedback'
       }
     ]
   };
 
-  const getAISuggestion = async (improvementId: string, helpPrompt: string) => {
-    setLoadingHelp(improvementId);
-    try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: [{
-            role: 'user',
-            content: `${helpPrompt} for this prompt: "${basicPrompt}". Give me 2-3 specific, actionable suggestions.`
-          }],
-          enhancedPrompt: null
-        })
-      });
-
-      const data = await response.json();
-      setAiSuggestions(prev => ({
-        ...prev,
-        [improvementId]: data.message
-      }));
-    } catch (error) {
-      console.error('Error getting AI suggestion:', error);
-    } finally {
-      setLoadingHelp(null);
-    }
-  };
 
   const toggleImprovement = (category: keyof typeof selectedImprovements, improvement: any) => {
     if (selectedImprovements[category].includes(improvement.id)) {
@@ -347,11 +310,11 @@ const RefinePage = () => {
     <div className="max-w-6xl mx-auto p-6 bg-white min-h-screen">
       <div className="mb-6">
         <Link
-          href="/"
+          href="/prompts"
           className="flex items-center text-gray-600 hover:text-gray-800 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Start
+          Back to Prompts
         </Link>
       </div>
 
@@ -389,37 +352,16 @@ const RefinePage = () => {
                 <div className="space-y-3">
                   {improvementSuggestions.product.map((improvement) => (
                     <div key={improvement.id}>
-                      <div className="flex items-center justify-between">
-                        <label className="flex items-center cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={selectedImprovements.product.includes(improvement.id)}
-                            onChange={() => toggleImprovement('product', improvement)}
-                            className="mr-3 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
-                          />
-                          <span className="text-gray-900">{improvement.text}</span>
-                        </label>
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => getAISuggestion(improvement.id, improvement.helpPrompt)}
-                            disabled={loadingHelp === improvement.id}
-                            className="flex items-center text-xs px-2 py-1 bg-green-100 text-green-700 rounded hover:bg-green-200 transition-colors disabled:opacity-50"
-                          >
-                            {loadingHelp === improvement.id ? (
-                              <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-green-600 mr-1"></div>
-                            ) : (
-                              <Lightbulb className="w-3 h-3 mr-1" />
-                            )}
-                            Help
-                          </button>
-                        </div>
-                      </div>
+                      <label className="flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={selectedImprovements.product.includes(improvement.id)}
+                          onChange={() => toggleImprovement('product', improvement)}
+                          className="mr-3 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+                        />
+                        <span className="text-gray-900">{improvement.text}</span>
+                      </label>
 
-                      {aiSuggestions[improvement.id] && (
-                        <div className="ml-7 mt-2 p-3 bg-white border border-green-200 rounded text-sm text-gray-700">
-                          <div dangerouslySetInnerHTML={renderMarkdown(aiSuggestions[improvement.id])} />
-                        </div>
-                      )}
 
                       {activeInput === improvement.id && (
                         <div className="ml-7 mt-2">
@@ -464,37 +406,16 @@ const RefinePage = () => {
                 <div className="space-y-3">
                   {improvementSuggestions.process.map((improvement) => (
                     <div key={improvement.id}>
-                      <div className="flex items-center justify-between">
-                        <label className="flex items-center cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={selectedImprovements.process.includes(improvement.id)}
-                            onChange={() => toggleImprovement('process', improvement)}
-                            className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                          />
-                          <span className="text-gray-900">{improvement.text}</span>
-                        </label>
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => getAISuggestion(improvement.id, improvement.helpPrompt)}
-                            disabled={loadingHelp === improvement.id}
-                            className="flex items-center text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors disabled:opacity-50"
-                          >
-                            {loadingHelp === improvement.id ? (
-                              <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-blue-600 mr-1"></div>
-                            ) : (
-                              <Lightbulb className="w-3 h-3 mr-1" />
-                            )}
-                            Help
-                          </button>
-                        </div>
-                      </div>
+                      <label className="flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={selectedImprovements.process.includes(improvement.id)}
+                          onChange={() => toggleImprovement('process', improvement)}
+                          className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                        />
+                        <span className="text-gray-900">{improvement.text}</span>
+                      </label>
 
-                      {aiSuggestions[improvement.id] && (
-                        <div className="ml-7 mt-2 p-3 bg-white border border-blue-200 rounded text-sm text-gray-700">
-                          <div dangerouslySetInnerHTML={renderMarkdown(aiSuggestions[improvement.id])} />
-                        </div>
-                      )}
 
                       {activeInput === improvement.id && (
                         <div className="ml-7 mt-2">
@@ -539,37 +460,16 @@ const RefinePage = () => {
                 <div className="space-y-3">
                   {improvementSuggestions.performance.map((improvement) => (
                     <div key={improvement.id}>
-                      <div className="flex items-center justify-between">
-                        <label className="flex items-center cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={selectedImprovements.performance.includes(improvement.id)}
-                            onChange={() => toggleImprovement('performance', improvement)}
-                            className="mr-3 h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
-                          />
-                          <span className="text-gray-900">{improvement.text}</span>
-                        </label>
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => getAISuggestion(improvement.id, improvement.helpPrompt)}
-                            disabled={loadingHelp === improvement.id}
-                            className="flex items-center text-xs px-2 py-1 bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors disabled:opacity-50"
-                          >
-                            {loadingHelp === improvement.id ? (
-                              <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-purple-600 mr-1"></div>
-                            ) : (
-                              <Lightbulb className="w-3 h-3 mr-1" />
-                            )}
-                            Help
-                          </button>
-                        </div>
-                      </div>
+                      <label className="flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={selectedImprovements.performance.includes(improvement.id)}
+                          onChange={() => toggleImprovement('performance', improvement)}
+                          className="mr-3 h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                        />
+                        <span className="text-gray-900">{improvement.text}</span>
+                      </label>
 
-                      {aiSuggestions[improvement.id] && (
-                        <div className="ml-7 mt-2 p-3 bg-white border border-purple-200 rounded text-sm text-gray-700">
-                          <div dangerouslySetInnerHTML={renderMarkdown(aiSuggestions[improvement.id])} />
-                        </div>
-                      )}
 
                       {activeInput === improvement.id && (
                         <div className="ml-7 mt-2">
