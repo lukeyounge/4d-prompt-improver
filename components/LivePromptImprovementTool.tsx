@@ -393,6 +393,41 @@ const LivePromptImprovementTool = () => {
     }
   };
 
+  const renderMarkdown = (text: string) => {
+    // Simple markdown rendering for chat messages
+    let html = text
+      // Bold text **text** -> <strong>text</strong>
+      .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
+      // Italic text *text* -> <em>text</em>
+      .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
+      // Headers ### -> <h3>
+      .replace(/^### (.+)$/gm, '<h3 class="font-bold text-base mt-2 mb-1">$1</h3>')
+      .replace(/^## (.+)$/gm, '<h2 class="font-bold text-lg mt-3 mb-1">$1</h2>')
+      .replace(/^# (.+)$/gm, '<h1 class="font-bold text-xl mt-3 mb-2">$1</h1>')
+      // Bullet points - item -> styled list
+      .replace(/^- (.+)$/gm, '<div class="flex items-start"><span class="mr-2">•</span><span>$1</span></div>')
+      // Numbered lists 1. item -> styled numbered list
+      .replace(/^(\d+)\. (.+)$/gm, '<div class="flex items-start"><span class="mr-2 font-medium">$1.</span><span>$2</span></div>')
+      // Code blocks (simple inline code)
+      .replace(/`([^`]+)`/g, '<code class="bg-gray-200 px-1 py-0.5 rounded text-xs font-mono">$1</code>')
+      // Convert paragraphs (double line breaks) to proper spacing
+      .replace(/\n\n+/g, '</p><p class="mt-3">')
+      // Single line breaks become spaces (not <br> tags)
+      .replace(/\n/g, ' ');
+
+    // Wrap the entire content in a paragraph if it doesn't start with a header
+    if (!html.startsWith('<h')) {
+      html = '<p>' + html + '</p>';
+    } else {
+      html = html + '</p>'; // Close the last paragraph
+    }
+
+    // Clean up any empty paragraphs
+    html = html.replace(/<p><\/p>/g, '').replace(/<p>\s*<\/p>/g, '');
+
+    return { __html: html };
+  };
+
   const totalSelected = Object.values(selectedImprovements).flat().length;
   const totalWithInput = Object.values(selectedImprovements).flat().filter(id =>
     improvementInputs[id] && improvementInputs[id].trim()
@@ -993,7 +1028,10 @@ const LivePromptImprovementTool = () => {
                           : 'bg-gray-100 text-gray-800'
                       }`}
                     >
-                      <div className="text-sm whitespace-pre-wrap">{message.content}</div>
+                      <div
+                        className="text-sm"
+                        dangerouslySetInnerHTML={renderMarkdown(message.content)}
+                      />
                     </div>
                   </div>
                 ))}
@@ -1052,30 +1090,13 @@ const LivePromptImprovementTool = () => {
           )}
         </div>
 
-        <div className="flex flex-wrap gap-4 justify-center mb-8">
-          <button
-            onClick={() => copyPrompt(improvedPrompt)}
-            className="flex items-center px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-          >
-            {copied ? <CheckCircle className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
-            {copied ? 'Copied!' : 'Copy Improved Prompt'}
-          </button>
+        <div className="flex justify-center mb-8">
           <button
             onClick={resetTool}
             className="flex items-center px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
           >
             Try Another Prompt
           </button>
-        </div>
-
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-          <h4 className="font-semibold text-yellow-800 mb-3">Next Steps - You&apos;re in Control:</h4>
-          <ol className="list-decimal list-inside text-yellow-700 space-y-2 text-sm">
-            <li>Copy your expertise-enhanced prompt and use it with Claude, ChatGPT, or your preferred AI tool</li>
-            <li>Notice how AI responds differently when you bring your professional knowledge to the collaboration</li>
-            <li>Practice discernment: evaluate the AI&apos;s output using your expertise and experience</li>
-            <li>Continue refining how you direct AI to work for you, not the other way around</li>
-          </ol>
         </div>
       </div>
     );

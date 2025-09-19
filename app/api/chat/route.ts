@@ -12,13 +12,22 @@ export async function POST(request: NextRequest) {
     console.log('=== Chat API Request ===');
     console.log('Enhanced Prompt:', enhancedPrompt);
     console.log('Message Count:', messages.length);
-    console.log('Latest Message:', messages[messages.length - 1]);
+    console.log('Latest Message:', messages.length > 0 ? messages[messages.length - 1] : 'None (starting new conversation)');
     console.log('API Key configured:', !!process.env.ANTHROPIC_API_KEY);
 
-    if (!messages || !Array.isArray(messages) || messages.length === 0) {
-      console.log('Error: Missing or invalid messages');
+    if (!messages || !Array.isArray(messages)) {
+      console.log('Error: Missing or invalid messages array');
       return NextResponse.json(
         { error: 'Messages array is required' },
+        { status: 400 }
+      );
+    }
+
+    // For new conversations, we need either messages or an enhanced prompt
+    if (messages.length === 0 && !enhancedPrompt) {
+      console.log('Error: Either messages or enhanced prompt required');
+      return NextResponse.json(
+        { error: 'Either message history or enhanced prompt is required' },
         { status: 400 }
       );
     }
@@ -38,7 +47,7 @@ export async function POST(request: NextRequest) {
     // For subsequent messages, we'll continue the conversation
     let conversationMessages;
 
-    if (messages.length === 1 && enhancedPrompt) {
+    if (messages.length === 0 && enhancedPrompt) {
       // First message - use the enhanced prompt
       conversationMessages = [
         {
