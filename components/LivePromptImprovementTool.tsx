@@ -147,37 +147,37 @@ const LivePromptImprovementTool = () => {
       if (productInputs.some(item => item.id === 'context')) {
         const contextInput = productInputs.find(item => item.id === 'context');
         sections.push('\n**Context & Request:**');
-        sections.push(`${contextInput.input}`);
+        sections.push(`${contextInput?.input}`);
       }
 
       if (productInputs.some(item => item.id === 'examples')) {
         const examplesInput = productInputs.find(item => item.id === 'examples');
         sections.push('\n**Examples to Follow:**');
-        sections.push(`${examplesInput.input}`);
+        sections.push(`${examplesInput?.input}`);
       }
 
       if (productInputs.some(item => item.id === 'constraints')) {
         const constraintsInput = productInputs.find(item => item.id === 'constraints');
         sections.push('\n**Constraints:**');
-        sections.push(`${constraintsInput.input}`);
+        sections.push(`${constraintsInput?.input}`);
       }
 
       if (productInputs.some(item => item.id === 'steps')) {
         const stepsInput = productInputs.find(item => item.id === 'steps');
         sections.push('\n**Step-by-Step Approach:**');
-        sections.push(`${stepsInput.input}`);
+        sections.push(`${stepsInput?.input}`);
       }
 
       if (productInputs.some(item => item.id === 'thinking')) {
         const thinkingInput = productInputs.find(item => item.id === 'thinking');
         sections.push('\n**Think First:**');
-        sections.push(`${thinkingInput.input}`);
+        sections.push(`${thinkingInput?.input}`);
       }
 
       if (productInputs.some(item => item.id === 'role')) {
         const roleInput = productInputs.find(item => item.id === 'role');
         sections.push('\n**AI Role & Communication:**');
-        sections.push(`${roleInput.input}`);
+        sections.push(`${roleInput?.input}`);
       }
     }
 
@@ -466,37 +466,37 @@ const LivePromptImprovementTool = () => {
                   if (productInputs.some(item => item.id === 'context')) {
                     const contextInput = productInputs.find(item => item.id === 'context');
                     sections.push('\n**Context & Request:**');
-                    sections.push(`${contextInput.input}`);
+                    sections.push(`${contextInput?.input}`);
                   }
 
                   if (productInputs.some(item => item.id === 'examples')) {
                     const examplesInput = productInputs.find(item => item.id === 'examples');
                     sections.push('\n**Examples to Follow:**');
-                    sections.push(`${examplesInput.input}`);
+                    sections.push(`${examplesInput?.input}`);
                   }
 
                   if (productInputs.some(item => item.id === 'constraints')) {
                     const constraintsInput = productInputs.find(item => item.id === 'constraints');
                     sections.push('\n**Constraints:**');
-                    sections.push(`${constraintsInput.input}`);
+                    sections.push(`${constraintsInput?.input}`);
                   }
 
                   if (productInputs.some(item => item.id === 'steps')) {
                     const stepsInput = productInputs.find(item => item.id === 'steps');
                     sections.push('\n**Step-by-Step Approach:**');
-                    sections.push(`${stepsInput.input}`);
+                    sections.push(`${stepsInput?.input}`);
                   }
 
                   if (productInputs.some(item => item.id === 'thinking')) {
                     const thinkingInput = productInputs.find(item => item.id === 'thinking');
                     sections.push('\n**Think First:**');
-                    sections.push(`${thinkingInput.input}`);
+                    sections.push(`${thinkingInput?.input}`);
                   }
 
                   if (productInputs.some(item => item.id === 'role')) {
                     const roleInput = productInputs.find(item => item.id === 'role');
                     sections.push('\n**AI Role & Communication:**');
-                    sections.push(`${roleInput.input}`);
+                    sections.push(`${roleInput?.input}`);
                   }
 
                   return sections.join('\n');
@@ -551,37 +551,37 @@ const LivePromptImprovementTool = () => {
                     if (productInputs.some(item => item.id === 'context')) {
                       const contextInput = productInputs.find(item => item.id === 'context');
                       sections.push('\n**Context & Request:**');
-                      sections.push(`${contextInput.input}`);
+                      sections.push(`${contextInput?.input}`);
                     }
 
                     if (productInputs.some(item => item.id === 'examples')) {
                       const examplesInput = productInputs.find(item => item.id === 'examples');
                       sections.push('\n**Examples to Follow:**');
-                      sections.push(`${examplesInput.input}`);
+                      sections.push(`${examplesInput?.input}`);
                     }
 
                     if (productInputs.some(item => item.id === 'constraints')) {
                       const constraintsInput = productInputs.find(item => item.id === 'constraints');
                       sections.push('\n**Constraints:**');
-                      sections.push(`${constraintsInput.input}`);
+                      sections.push(`${constraintsInput?.input}`);
                     }
 
                     if (productInputs.some(item => item.id === 'steps')) {
                       const stepsInput = productInputs.find(item => item.id === 'steps');
                       sections.push('\n**Step-by-Step Approach:**');
-                      sections.push(`${stepsInput.input}`);
+                      sections.push(`${stepsInput?.input}`);
                     }
 
                     if (productInputs.some(item => item.id === 'thinking')) {
                       const thinkingInput = productInputs.find(item => item.id === 'thinking');
                       sections.push('\n**Think First:**');
-                      sections.push(`${thinkingInput.input}`);
+                      sections.push(`${thinkingInput?.input}`);
                     }
 
                     if (productInputs.some(item => item.id === 'role')) {
                       const roleInput = productInputs.find(item => item.id === 'role');
                       sections.push('\n**AI Role & Communication:**');
-                      sections.push(`${roleInput.input}`);
+                      sections.push(`${roleInput?.input}`);
                     }
 
                     return sections.join('\n');
