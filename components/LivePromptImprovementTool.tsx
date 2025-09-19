@@ -18,6 +18,12 @@ const LivePromptImprovementTool = () => {
   const [improvedPrompt, setImprovedPrompt] = useState('');
   const [showComparison, setShowComparison] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [apiResponses, setApiResponses] = useState<{
+    basicResponse: string;
+    enhancedResponse: string;
+  } | null>(null);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   const [activeInput, setActiveInput] = useState<string | null>(null);
   const [improvementInputs, setImprovementInputs] = useState<{[key: string]: string}>({});
@@ -221,6 +227,42 @@ const LivePromptImprovementTool = () => {
     setSelectedImprovements({ product: [], process: [], performance: [] });
     setImprovedPrompt('');
     setShowComparison(false);
+    setApiResponses(null);
+    setApiError(null);
+    setIsGenerating(false);
+  };
+
+  const generateComparison = async () => {
+    setIsGenerating(true);
+    setApiError(null);
+
+    try {
+      const response = await fetch('/api/claude', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          basicPrompt: basicPrompt,
+          enhancedPrompt: improvedPrompt,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to generate responses');
+      }
+
+      const data = await response.json();
+      setApiResponses({
+        basicResponse: data.basicResponse.text,
+        enhancedResponse: data.enhancedResponse.text,
+      });
+    } catch (error) {
+      setApiError(error instanceof Error ? error.message : 'Something went wrong');
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   const totalSelected = Object.values(selectedImprovements).flat().length;
@@ -785,6 +827,89 @@ const LivePromptImprovementTool = () => {
               </div>
             )}
           </div>
+        </div>
+
+        {/* API Comparison Section */}
+        <div className="bg-purple-50 border border-purple-200 rounded-lg p-6 mb-8">
+          <h3 className="text-xl font-semibold text-purple-900 mb-4 flex items-center">
+            <Zap className="w-5 h-5 mr-2" />
+            See the Difference in Action
+          </h3>
+          <p className="text-purple-800 mb-4">
+            Want to see how much better your enhanced prompt really is? Let's send both prompts to Claude and compare the actual responses.
+          </p>
+
+          {!apiResponses && !isGenerating && (
+            <button
+              onClick={generateComparison}
+              disabled={isGenerating}
+              className="flex items-center px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-semibold"
+            >
+              <MessageSquare className="w-4 h-4 mr-2" />
+              Generate Live Comparison
+            </button>
+          )}
+
+          {isGenerating && (
+            <div className="flex items-center text-purple-800">
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-800 mr-2"></div>
+              Generating responses from Claude...
+            </div>
+          )}
+
+          {apiError && (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+              <p className="text-red-800 font-medium">Error: {apiError}</p>
+              <button
+                onClick={generateComparison}
+                className="mt-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
+              >
+                Try Again
+              </button>
+            </div>
+          )}
+
+          {apiResponses && (
+            <div className="mt-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Basic Response */}
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                    <div className="bg-gray-400 text-white p-2 rounded-lg mr-3">
+                      <MessageSquare className="w-4 h-4" />
+                    </div>
+                    Basic Prompt Response
+                  </h4>
+                  <div className="bg-white border border-gray-200 rounded-lg p-4 h-80 overflow-y-auto">
+                    <div className="text-gray-800 whitespace-pre-wrap text-sm">
+                      {apiResponses.basicResponse}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Enhanced Response */}
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                    <div className="bg-green-500 text-white p-2 rounded-lg mr-3">
+                      <Zap className="w-4 h-4" />
+                    </div>
+                    Enhanced Prompt Response
+                  </h4>
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-4 h-80 overflow-y-auto">
+                    <div className="text-gray-800 whitespace-pre-wrap text-sm">
+                      {apiResponses.enhancedResponse}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 text-center">
+                <p className="text-purple-800 font-medium">
+                  ✨ Notice how the enhanced prompt produces more targeted, detailed, and useful results!
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="flex flex-wrap gap-4 justify-center mb-8">
