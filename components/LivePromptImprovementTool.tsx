@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Copy, CheckCircle, Target, Settings, MessageSquare, ArrowRight, Plus, Lightbulb, Zap } from 'lucide-react';
+import { Copy, CheckCircle, Target, Settings, MessageSquare, ArrowRight, Plus, Lightbulb, Zap, Send } from 'lucide-react';
 
 const LivePromptImprovementTool = () => {
   const [currentStep, setCurrentStep] = useState('basic');
@@ -29,6 +29,12 @@ const LivePromptImprovementTool = () => {
   const [improvementInputs, setImprovementInputs] = useState<{[key: string]: string}>({});
   const [loadingHelp, setLoadingHelp] = useState<string | null>(null);
   const [aiSuggestions, setAiSuggestions] = useState<{[key: string]: string}>({});
+
+  // Chatbot state
+  const [messages, setMessages] = useState<Array<{role: 'user' | 'assistant', content: string}>>([]);
+  const [currentMessage, setCurrentMessage] = useState('');
+  const [isChattingWithClaude, setIsChattingWithClaude] = useState(false);
+  const [chatError, setChatError] = useState<string | null>(null);
 
   const improvementSuggestions = {
     product: [
@@ -230,6 +236,11 @@ const LivePromptImprovementTool = () => {
     setApiResponses(null);
     setApiError(null);
     setIsGenerating(false);
+    // Reset chat state
+    setMessages([]);
+    setCurrentMessage('');
+    setIsChattingWithClaude(false);
+    setChatError(null);
   };
 
   const generateComparison = async () => {
@@ -280,6 +291,105 @@ const LivePromptImprovementTool = () => {
       setApiError(error instanceof Error ? error.message : 'Something went wrong');
     } finally {
       setIsGenerating(false);
+    }
+  };
+
+  const startChatWithClaude = async () => {
+    setIsChattingWithClaude(true);
+    setChatError(null);
+
+    console.log('=== Starting Chat with Claude ===');
+    console.log('Enhanced Prompt:', improvedPrompt);
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: [],
+          enhancedPrompt: improvedPrompt,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to start chat');
+      }
+
+      const data = await response.json();
+
+      console.log('=== Chat Response Received ===');
+      console.log('Response Length:', data.message.length);
+      console.log('Usage:', data.usage);
+
+      setMessages([
+        { role: 'assistant', content: data.message }
+      ]);
+    } catch (error) {
+      console.error('Chat Error:', error);
+      setChatError(error instanceof Error ? error.message : 'Something went wrong');
+    } finally {
+      setIsChattingWithClaude(false);
+    }
+  };
+
+  const sendMessage = async () => {
+    if (!currentMessage.trim()) return;
+
+    const userMessage = currentMessage.trim();
+    setCurrentMessage('');
+    setIsChattingWithClaude(true);
+    setChatError(null);
+
+    // Add user message to chat
+    const updatedMessages = [...messages, { role: 'user' as const, content: userMessage }];
+    setMessages(updatedMessages);
+
+    console.log('=== Sending Chat Message ===');
+    console.log('User Message:', userMessage);
+    console.log('Message History Length:', updatedMessages.length);
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: updatedMessages,
+          enhancedPrompt: null, // Not needed for ongoing conversation
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to send message');
+      }
+
+      const data = await response.json();
+
+      console.log('=== Chat Response Received ===');
+      console.log('Response Length:', data.message.length);
+      console.log('Usage:', data.usage);
+
+      // Add assistant response to chat
+      setMessages(prev => [...prev, { role: 'assistant', content: data.message }]);
+    } catch (error) {
+      console.error('Chat Error:', error);
+      setChatError(error instanceof Error ? error.message : 'Something went wrong');
+      // Remove the user message if the API call failed
+      setMessages(messages);
+    } finally {
+      setIsChattingWithClaude(false);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
     }
   };
 
@@ -847,39 +957,85 @@ const LivePromptImprovementTool = () => {
           </div>
         </div>
 
-        {/* API Comparison Section */}
+        {/* Claude Chatbot Section */}
         <div className="bg-purple-50 border border-purple-200 rounded-lg p-6 mb-8">
           <h3 className="text-xl font-semibold text-purple-900 mb-4 flex items-center">
-            <Zap className="w-5 h-5 mr-2" />
-            See the Difference in Action
+            <MessageSquare className="w-5 h-5 mr-2" />
+            Chat with Claude Using Your Enhanced Prompt
           </h3>
           <p className="text-purple-800 mb-4">
-            Want to see how much better your enhanced prompt really is? Let&apos;s send both prompts to Claude and compare the actual responses.
+            Your enhanced prompt is designed for collaboration! Start a conversation with Claude and see how it asks clarifying questions and works with your expertise.
           </p>
 
-          {!apiResponses && !isGenerating && (
+          {messages.length === 0 && !isChattingWithClaude && (
             <button
-              onClick={generateComparison}
-              disabled={isGenerating}
+              onClick={startChatWithClaude}
+              disabled={isChattingWithClaude}
               className="flex items-center px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-semibold"
             >
               <MessageSquare className="w-4 h-4 mr-2" />
-              Generate Live Comparison
+              Start Conversation with Claude
             </button>
           )}
 
-          {isGenerating && (
-            <div className="flex items-center text-purple-800">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-800 mr-2"></div>
-              Generating responses from Claude...
+          {(messages.length > 0 || isChattingWithClaude) && (
+            <div className="bg-white border border-purple-200 rounded-lg p-4 mb-4">
+              <div className="h-96 overflow-y-auto mb-4 space-y-4">
+                {messages.map((message, index) => (
+                  <div
+                    key={index}
+                    className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                  >
+                    <div
+                      className={`max-w-[80%] p-3 rounded-lg ${
+                        message.role === 'user'
+                          ? 'bg-blue-500 text-white'
+                          : 'bg-gray-100 text-gray-800'
+                      }`}
+                    >
+                      <div className="text-sm whitespace-pre-wrap">{message.content}</div>
+                    </div>
+                  </div>
+                ))}
+                {isChattingWithClaude && (
+                  <div className="flex justify-start">
+                    <div className="bg-gray-100 text-gray-800 p-3 rounded-lg">
+                      <div className="flex items-center text-sm">
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600 mr-2"></div>
+                        Claude is thinking...
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {messages.length > 0 && (
+                <div className="flex gap-2">
+                  <textarea
+                    value={currentMessage}
+                    onChange={(e) => setCurrentMessage(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder="Continue the conversation..."
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
+                    rows={2}
+                  />
+                  <button
+                    onClick={sendMessage}
+                    disabled={!currentMessage.trim() || isChattingWithClaude}
+                    className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex items-center"
+                  >
+                    <Send className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
             </div>
           )}
 
-          {apiError && (
+          {chatError && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-              <p className="text-red-800 font-medium">Error: {apiError}</p>
+              <p className="text-red-800 font-medium">Error: {chatError}</p>
               <button
-                onClick={generateComparison}
+                onClick={messages.length === 0 ? startChatWithClaude : sendMessage}
                 className="mt-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
               >
                 Try Again
@@ -887,45 +1043,11 @@ const LivePromptImprovementTool = () => {
             </div>
           )}
 
-          {apiResponses && (
-            <div className="mt-6">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Basic Response */}
-                <div>
-                  <h4 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
-                    <div className="bg-gray-400 text-white p-2 rounded-lg mr-3">
-                      <MessageSquare className="w-4 h-4" />
-                    </div>
-                    Basic Prompt Response
-                  </h4>
-                  <div className="bg-white border border-gray-200 rounded-lg p-4 h-80 overflow-y-auto">
-                    <div className="text-gray-800 whitespace-pre-wrap text-sm">
-                      {apiResponses.basicResponse}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Enhanced Response */}
-                <div>
-                  <h4 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
-                    <div className="bg-green-500 text-white p-2 rounded-lg mr-3">
-                      <Zap className="w-4 h-4" />
-                    </div>
-                    Enhanced Prompt Response
-                  </h4>
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-4 h-80 overflow-y-auto">
-                    <div className="text-gray-800 whitespace-pre-wrap text-sm">
-                      {apiResponses.enhancedResponse}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-4 text-center">
-                <p className="text-purple-800 font-medium">
-                  ✨ Notice how the enhanced prompt produces more targeted, detailed, and useful results!
-                </p>
-              </div>
+          {messages.length > 0 && (
+            <div className="mt-4 bg-green-50 border border-green-200 rounded-lg p-3">
+              <p className="text-green-800 text-sm">
+                ✨ Notice how Claude responds differently with your enhanced prompt - asking questions, offering options, and working collaboratively with your expertise!
+              </p>
             </div>
           )}
         </div>
