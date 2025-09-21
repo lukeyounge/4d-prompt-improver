@@ -688,14 +688,6 @@ const RefinePage = () => {
                   </div>
                 )}
 
-                {messages.length > 0 && (
-                  <div className="mt-4 bg-green-50 border border-green-200 rounded-xl p-3">
-                    <p className="text-green-800 text-sm">
-                      Great! You're testing how your enhanced prompt performs. When you're ready, move to the analysis phase to review your conversation.
-                    </p>
-                  </div>
-                )}
-
                 {/* Copy My Document Section */}
                 {messages.length > 0 && (
                   <div className="mt-4 bg-blue-50 border border-blue-200 rounded-xl p-4">
@@ -739,19 +731,22 @@ const RefinePage = () => {
               </div>
             )}
 
-            {/* Navigation */}
+            {/* Success Message */}
             {messages.length > 0 && (
-              <div className="flex flex-col items-center gap-4 mb-8 mt-8">
-                <div className="border-t border-gray-200 w-full max-w-md my-4"></div>
+              <div className="mt-6 bg-green-50 border border-green-200 rounded-xl p-4">
+                <p className="text-green-800 text-sm mb-3">
+                  Please wait until your facilitator gives you instructions about the next step.
+                </p>
                 <Link
                   href="/analysis"
-                  className="flex items-center px-8 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all duration-200 shadow-sm hover:shadow-md text-lg font-semibold"
+                  className="inline-flex items-center px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700 transition-all duration-200 text-xs font-medium"
                 >
-                  <ArrowRight className="w-5 h-5 mr-2" />
+                  <ArrowRight className="w-3 h-3 mr-1" />
                   Analyze Your Conversation
                 </Link>
               </div>
             )}
+
           </>
         )}
       </div>
