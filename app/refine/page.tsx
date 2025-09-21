@@ -347,15 +347,15 @@ const RefinePage = () => {
     // Simple markdown rendering for chat messages
     let html = text
       // Bold text **text** -> <strong>text</strong>
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      // Headers ### -> <h3>
-      .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-      .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-      .replace(/^# (.*$)/gm, '<h1>$1</h1>')
-      // Lists - item -> <li>item</li>
-      .replace(/^[\-\*] (.*$)/gm, '<li>$1</li>')
-      // Wrap consecutive <li> in <ul>
-      .replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>')
+      .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
+      // Headers with proper styling
+      .replace(/^### (.*$)/gm, '<h3 class="text-lg font-semibold mt-4 mb-2">$1</h3>')
+      .replace(/^## (.*$)/gm, '<h2 class="text-xl font-semibold mt-6 mb-3">$1</h2>')
+      .replace(/^# (.*$)/gm, '<h1 class="text-2xl font-bold mt-6 mb-3">$1</h1>')
+      // Lists - item -> <li>item</li> with proper spacing
+      .replace(/^[\-\*] (.*$)/gm, '<li class="ml-4 mb-1">$1</li>')
+      // Wrap consecutive <li> in <ul> with proper styling
+      .replace(/((<li[^>]*>.*?<\/li>\s*)+)/gs, '<ul class="list-disc ml-6 my-2 space-y-1">$1</ul>')
       // Line breaks
       .replace(/\n/g, '<br>');
 
