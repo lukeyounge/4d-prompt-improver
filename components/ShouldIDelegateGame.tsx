@@ -36,8 +36,8 @@ const ShouldIDelegateGame: React.FC = () => {
       scenario: "Creating 25 word problems about percentages for Grade 7 mathematics practice.",
       shouldDelegate: true,
       feedback: {
-        correct: "✅ Smart choice! AI can generate varied problem scenarios whilst you review and adjust them for your specific learners' contexts and abilities.",
-        incorrect: "❌ This is perfect for AI assistance! It can create diverse problem variations, saving you hours whilst you focus on reviewing quality and relevance."
+        correct: "Smart choice! AI can generate varied problem scenarios whilst you review and adjust them for your specific learners' contexts and abilities.",
+        incorrect: "This is perfect for AI assistance! It can create diverse problem variations, saving you hours whilst you focus on reviewing quality and relevance."
       },
     },
     {
@@ -46,8 +46,8 @@ const ShouldIDelegateGame: React.FC = () => {
       scenario: "Determining which learners in your class need additional literacy support based on their classroom participation and reading behaviours.",
       shouldDelegate: false,
       feedback: {
-        correct: "✅ Exactly right! This requires your direct observations, knowledge of individual learners, and professional assessment skills that AI cannot replicate.",
-        incorrect: "❌ This needs your human expertise! You observe daily interactions, reading struggles, and individual needs that AI has never seen."
+        correct: "Exactly right! This requires your direct observations, knowledge of individual learners, and professional assessment skills that AI cannot replicate.",
+        incorrect: "This needs your human expertise! You observe daily interactions, reading struggles, and individual needs that AI has never seen."
       },
     },
     {
@@ -56,8 +56,8 @@ const ShouldIDelegateGame: React.FC = () => {
       scenario: "Researching current approaches to mobile phone policies in schools to inform your updated school guidelines.",
       shouldDelegate: true,
       feedback: {
-        correct: "✅ Perfect collaboration! AI can research policies and trends whilst you evaluate what fits your school culture and community needs.",
-        incorrect: "❌ Let AI help with the research legwork! It can gather policy examples and research whilst you focus on adapting them to your context."
+        correct: "Perfect collaboration! AI can research policies and trends whilst you evaluate what fits your school culture and community needs.",
+        incorrect: "Let AI help with the research legwork! It can gather policy examples and research whilst you focus on adapting them to your context."
       },
     },
     {
@@ -66,8 +66,8 @@ const ShouldIDelegateGame: React.FC = () => {
       scenario: "Responding to a parent's concern about their child being excluded from friend groups during break time.",
       shouldDelegate: false,
       feedback: {
-        correct: "✅ Absolutely! This requires empathy, understanding of social dynamics, and relationship management skills that only humans can provide.",
-        incorrect: "❌ This needs your human touch! Parent relationships and social-emotional issues require empathy and personal understanding."
+        correct: "Absolutely! This requires empathy, understanding of social dynamics, and relationship management skills that only humans can provide.",
+        incorrect: "This needs your human touch! Parent relationships and social-emotional issues require empathy and personal understanding."
       },
     },
     {
@@ -76,8 +76,8 @@ const ShouldIDelegateGame: React.FC = () => {
       scenario: "Writing a newsletter update to parents about the upcoming athletics day events and schedule.",
       shouldDelegate: true,
       feedback: {
-        correct: "✅ Great delegation! AI can draft the structure and content whilst you add school-specific details and your personal communication style.",
-        incorrect: "❌ Perfect task for AI assistance! Let it handle the drafting whilst you focus on personalising and adding important details."
+        correct: "Great delegation! AI can draft the structure and content whilst you add school-specific details and your personal communication style.",
+        incorrect: "Perfect task for AI assistance! Let it handle the drafting whilst you focus on personalising and adding important details."
       },
     },
     {
@@ -86,8 +86,8 @@ const ShouldIDelegateGame: React.FC = () => {
       scenario: "Choosing which poems to include in your Grade 10 English curriculum based on your learners' cultural backgrounds and language proficiency.",
       shouldDelegate: false,
       feedback: {
-        correct: "✅ Spot on! This requires deep knowledge of your specific learners, their backgrounds, and what will resonate with your classroom community.",
-        incorrect: "❌ This needs your professional expertise! You know your learners' interests, cultural contexts, and reading levels better than any AI."
+        correct: "Spot on! This requires deep knowledge of your specific learners, their backgrounds, and what will resonate with your classroom community.",
+        incorrect: "This needs your professional expertise! You know your learners' interests, cultural contexts, and reading levels better than any AI."
       },
     },
     {
@@ -96,8 +96,8 @@ const ShouldIDelegateGame: React.FC = () => {
       scenario: "Creating a lesson plan on ecosystems for Grade 6 learners, including activities that work with your available resources.",
       shouldDelegate: true,
       feedback: {
-        correct: "✅ Smart approach! AI can suggest activities and structure whilst you adapt everything to your specific resources and learners' needs.",
-        incorrect: "❌ Let AI help with the planning framework! It can generate ideas whilst you customise based on your classroom reality."
+        correct: "Smart approach! AI can suggest activities and structure whilst you adapt everything to your specific resources and learners' needs.",
+        incorrect: "Let AI help with the planning framework! It can generate ideas whilst you customise based on your classroom reality."
       },
     },
     {
@@ -106,8 +106,8 @@ const ShouldIDelegateGame: React.FC = () => {
       scenario: "Deciding which teacher should mentor the new student teacher based on their teaching styles and interpersonal dynamics.",
       shouldDelegate: false,
       feedback: {
-        correct: "✅ Perfect judgement! This requires understanding personalities, teaching approaches, and relationship dynamics that only humans can assess.",
-        incorrect: "❌ This needs human insight! Professional relationships and mentoring matches require understanding people's personalities and working styles."
+        correct: "Perfect judgement! This requires understanding personalities, teaching approaches, and relationship dynamics that only humans can assess.",
+        incorrect: "This needs human insight! Professional relationships and mentoring matches require understanding people's personalities and working styles."
       },
     },
     {
@@ -116,8 +116,8 @@ const ShouldIDelegateGame: React.FC = () => {
       scenario: "Creating a summary of your class's test results showing progress trends and areas needing attention.",
       shouldDelegate: true,
       feedback: {
-        correct: "✅ Excellent choice! AI can organise and visualise the data whilst you interpret what it means for your specific learners and instruction.",
-        incorrect: "❌ Perfect for AI assistance! Let it handle data organisation whilst you focus on interpreting results and planning next steps."
+        correct: "Excellent choice! AI can organise and visualise the data whilst you interpret what it means for your specific learners and instruction.",
+        incorrect: "Perfect for AI assistance! Let it handle data organisation whilst you focus on interpreting results and planning next steps."
       },
     },
     {
@@ -126,8 +126,8 @@ const ShouldIDelegateGame: React.FC = () => {
       scenario: "Developing behaviour intervention strategies for a learner who struggles with attention and classroom disruptions.",
       shouldDelegate: false,
       feedback: {
-        correct: "✅ Absolutely right! This requires understanding the individual child, their triggers, and building relationship-based solutions.",
-        incorrect: "❌ This needs your human expertise! Individual behaviour plans require understanding the child's needs, family context, and classroom dynamics."
+        correct: "Absolutely right! This requires understanding the individual child, their triggers, and building relationship-based solutions.",
+        incorrect: "This needs your human expertise! Individual behaviour plans require understanding the child's needs, family context, and classroom dynamics."
       },
     }
   ], []);
@@ -233,6 +233,9 @@ const ShouldIDelegateGame: React.FC = () => {
   }, [gameState, showFeedback, groupDecision, timeLeft, currentScenario]);
 
   const getTimerColor = (): string => {
+    // If a decision has been made, make timer gray
+    if (groupDecision !== null) return 'text-gray-400';
+
     if (timeLeft > 30) return 'text-green-600';
     if (timeLeft > 15) return 'text-yellow-600';
     return 'text-red-600';
@@ -464,6 +467,7 @@ const ShouldIDelegateGame: React.FC = () => {
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div
                 className={`h-2 rounded-full transition-all duration-1000 ease-out ${
+                  groupDecision !== null ? 'bg-gray-400' :
                   timeLeft > 30 ? 'bg-green-500' :
                   timeLeft > 15 ? 'bg-yellow-500' : 'bg-red-500'
                 }`}
@@ -476,44 +480,80 @@ const ShouldIDelegateGame: React.FC = () => {
         {/* Scenario Card */}
         <div className="max-w-4xl mx-auto">
           <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 mb-6 shadow-sm">
-            <div className="flex items-center mb-4">
+            <p id="scenario-description" className="text-gray-900 text-xl md:text-2xl font-heading font-semibold leading-relaxed mb-4" role="main">{scenario.scenario}</p>
+            <div className="flex justify-end">
               <span className="bg-blue-100 text-blue-700 text-xs font-medium px-3 py-1 rounded-full">{scenario.category}</span>
             </div>
-            <p id="scenario-description" className="text-gray-700 text-base md:text-lg leading-relaxed" role="main">{scenario.scenario}</p>
           </div>
 
           {/* Decision Buttons */}
-          {!showFeedback && groupDecision === null && (
-            <div className="space-y-4 md:grid md:grid-cols-2 md:gap-6 md:space-y-0 animate-slide-in">
+          {!showFeedback && (
+            <div className="space-y-3 md:grid md:grid-cols-2 md:gap-4 md:space-y-0 animate-slide-in">
               <button
                 onClick={() => makeDecision(true)}
-                disabled={timeLeft === 0}
-                className="w-full bg-green-600 text-white p-4 md:p-6 rounded-xl font-medium hover:bg-green-700 transition-all duration-200 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={timeLeft === 0 || groupDecision !== null}
+                className={`w-full p-3 md:p-4 rounded-lg font-medium transition-all duration-500 border-2 ${
+                  groupDecision === null
+                    ? 'bg-green-50 border-green-200 text-green-700 hover:bg-green-100 hover:border-green-300'
+                    : groupDecision === true
+                      ? 'bg-green-100 border-green-300 text-green-800'
+                      : 'bg-gray-50 border-gray-200 text-gray-400'
+                } disabled:cursor-not-allowed`}
                 aria-label="Choose to delegate this task to AI assistant"
                 aria-describedby="scenario-description"
               >
                 <div className="flex items-center justify-center space-x-3">
-                  <div className="w-8 h-8 bg-green-100 rounded-xl flex items-center justify-center">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
+                  <div className={`w-6 h-6 rounded-lg flex items-center justify-center ${
+                    groupDecision === null
+                      ? 'bg-green-100'
+                      : groupDecision === true
+                        ? 'bg-green-200'
+                        : 'bg-gray-100'
+                  }`}>
+                    <CheckCircle className={`w-4 h-4 ${
+                      groupDecision === null
+                        ? 'text-green-600'
+                        : groupDecision === true
+                          ? 'text-green-700'
+                          : 'text-gray-400'
+                    }`} />
                   </div>
                   <div className="text-left">
-                    <div className="text-lg font-semibold">AI CAN HELP</div>
+                    <div className="text-base font-semibold">AI CAN HELP</div>
                   </div>
                 </div>
               </button>
               <button
                 onClick={() => makeDecision(false)}
-                disabled={timeLeft === 0}
-                className="w-full bg-red-600 text-white p-4 md:p-6 rounded-xl font-medium hover:bg-red-700 transition-all duration-200 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={timeLeft === 0 || groupDecision !== null}
+                className={`w-full p-3 md:p-4 rounded-lg font-medium transition-all duration-500 border-2 ${
+                  groupDecision === null
+                    ? 'bg-red-50 border-red-200 text-red-700 hover:bg-red-100 hover:border-red-300'
+                    : groupDecision === false
+                      ? 'bg-red-100 border-red-300 text-red-800'
+                      : 'bg-gray-50 border-gray-200 text-gray-400'
+                } disabled:cursor-not-allowed`}
                 aria-label="Choose to keep this task with human experts"
                 aria-describedby="scenario-description"
               >
                 <div className="flex items-center justify-center space-x-3">
-                  <div className="w-8 h-8 bg-red-100 rounded-xl flex items-center justify-center">
-                    <Users className="w-4 h-4 text-red-600" />
+                  <div className={`w-6 h-6 rounded-lg flex items-center justify-center ${
+                    groupDecision === null
+                      ? 'bg-red-100'
+                      : groupDecision === false
+                        ? 'bg-red-200'
+                        : 'bg-gray-100'
+                  }`}>
+                    <Users className={`w-4 h-4 ${
+                      groupDecision === null
+                        ? 'text-red-600'
+                        : groupDecision === false
+                          ? 'text-red-700'
+                          : 'text-gray-400'
+                    }`} />
                   </div>
                   <div className="text-left">
-                    <div className="text-lg font-semibold">HUMANS ONLY</div>
+                    <div className="text-base font-semibold">HUMANS ONLY</div>
                   </div>
                 </div>
               </button>
@@ -539,8 +579,8 @@ const ShouldIDelegateGame: React.FC = () => {
           {showFeedback && (
             <div className="space-y-4 animate-slide-in">
               <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm">
-                <div className="flex items-center mb-4">
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mr-3 ${
+                <div className="flex items-start mb-4">
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mr-4 flex-shrink-0 ${
                     isCorrect ? 'bg-green-600' : 'bg-red-600'
                   }`}>
                     {isCorrect ? (
@@ -550,21 +590,15 @@ const ShouldIDelegateGame: React.FC = () => {
                     )}
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-800">
-                      {isCorrect ? 'Excellent Choice!' : 'Learning Opportunity'}
-                    </h3>
-                    <p className={`text-base ${
+                    <p className="text-base text-gray-700 leading-relaxed mb-2">
+                      {isCorrect ? scenario.feedback.correct : scenario.feedback.incorrect}
+                    </p>
+                    <p className={`text-base font-medium ${
                       isCorrect ? 'text-green-600' : 'text-amber-600'
                     }`}>
                       {isCorrect ? '+100 points earned' : 'Consider this insight'}
                     </p>
                   </div>
-                </div>
-
-                <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 md:p-6 mb-4">
-                  <p className="text-base text-gray-700 leading-relaxed">
-                    {isCorrect ? scenario.feedback.correct : scenario.feedback.incorrect}
-                  </p>
                 </div>
 
               </div>
