@@ -356,8 +356,14 @@ const RefinePage = () => {
       .replace(/^[\-\*] (.*$)/gm, '<li class="ml-4 mb-1">$1</li>')
       // Wrap consecutive <li> in <ul> with proper styling
       .replace(/((<li[^>]*>.*?<\/li>\s*)+)/gs, '<ul class="list-disc ml-6 my-2 space-y-1">$1</ul>')
-      // Line breaks
-      .replace(/\n/g, '<br>');
+      // Convert double line breaks to paragraphs, single line breaks to small spaces
+      .replace(/\n\n/g, '</p><p class="mb-3">')
+      .replace(/\n/g, ' ');
+
+    // Wrap in paragraph tags if not already wrapped
+    if (!html.includes('<p')) {
+      html = '<p class="mb-3">' + html + '</p>';
+    }
 
     return { __html: html };
   };
@@ -742,7 +748,7 @@ const RefinePage = () => {
                   className="inline-flex items-center px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700 transition-all duration-200 text-xs font-medium"
                 >
                   <ArrowRight className="w-3 h-3 mr-1" />
-                  Analyze Your Conversation
+                  Next
                 </Link>
               </div>
             )}

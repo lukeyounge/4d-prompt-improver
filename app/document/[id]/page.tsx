@@ -106,15 +106,25 @@ export default function DocumentPage({ params }: DocumentPageProps) {
           <div 
             className="text-gray-800 leading-relaxed"
             dangerouslySetInnerHTML={{
-              __html: content ? content
-                .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
-                .replace(/^### (.*$)/gm, '<h3 class="text-lg font-semibold mt-6 mb-3">$1</h3>')
-                .replace(/^## (.*$)/gm, '<h2 class="text-xl font-semibold mt-8 mb-4">$1</h2>')
-                .replace(/^# (.*$)/gm, '<h1 class="text-2xl font-bold mt-8 mb-4">$1</h1>')
-                .replace(/^[\-\*] (.*$)/gm, '<li class="ml-4 mb-1">$1</li>')
-                .replace(/((<li[^>]*>.*?<\/li>\s*)+)/gs, '<ul class="list-disc ml-6 my-3 space-y-1">$1</ul>')
-                .replace(/\n/g, '<br>')
-                : ''
+              __html: content ? (() => {
+                let html = content
+                  .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
+                  .replace(/^### (.*$)/gm, '<h3 class="text-lg font-semibold mt-6 mb-3">$1</h3>')
+                  .replace(/^## (.*$)/gm, '<h2 class="text-xl font-semibold mt-8 mb-4">$1</h2>')
+                  .replace(/^# (.*$)/gm, '<h1 class="text-2xl font-bold mt-8 mb-4">$1</h1>')
+                  .replace(/^[\-\*] (.*$)/gm, '<li class="ml-4 mb-1">$1</li>')
+                  .replace(/((<li[^>]*>.*?<\/li>\s*)+)/gs, '<ul class="list-disc ml-6 my-3 space-y-1">$1</ul>')
+                  // Convert double line breaks to paragraphs, single line breaks to small spaces
+                  .replace(/\n\n/g, '</p><p class="mb-4">')
+                  .replace(/\n/g, ' ');
+                
+                // Wrap in paragraph tags if not already wrapped
+                if (!html.includes('<p')) {
+                  html = '<p class="mb-4">' + html + '</p>';
+                }
+                return html;
+              })()
+              : ''
             }}
           />
         </div>
