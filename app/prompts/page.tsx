@@ -35,7 +35,7 @@ export default function PromptsPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-white min-h-screen">
+    <div className="max-w-4xl mx-auto p-8 bg-gray-50 min-h-screen">
       <div className="mb-6">
         <Link
           href="/"
@@ -53,7 +53,7 @@ export default function PromptsPage() {
 
       <div className="max-w-4xl mx-auto">
         {/* Framework Overview */}
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8">
+        <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-8 shadow-sm">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">Three Components of Description</h2>
           <h3 className="text-lg font-medium text-gray-800 mb-6">Description is about communicating with AI in ways that create a productive collaborative environment.</h3>
           <div className="grid md:grid-cols-1 gap-6">
@@ -91,7 +91,7 @@ export default function PromptsPage() {
         </div>
 
         {/* Focus Question */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
+        <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-6">
           <h2 className="text-xl font-semibold text-blue-900 mb-4">How can I navigate AI implementation at my school?</h2>
           <p className="text-blue-800">
             As you explore how to better communicate with AI, let's use this question as a focus.
@@ -99,7 +99,7 @@ export default function PromptsPage() {
         </div>
 
         {/* Prompt Input */}
-        <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+        <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-6 shadow-sm">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Start with Your Basic Prompt</h2>
           <p className="text-gray-600 mb-4">
             Think about an issue you are having around AI implementation at your school (or an issue you envisage). Write a simple instruction or question to AI and then we'll do some enhancing.
@@ -110,7 +110,7 @@ export default function PromptsPage() {
             onChange={(e) => setBasicPrompt(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Enter your basic prompt here... (e.g., 'Help me write a lesson plan')"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
             rows={4}
           />
 
@@ -119,7 +119,7 @@ export default function PromptsPage() {
             <button
               onClick={handleContinue}
               disabled={!basicPrompt.trim()}
-              className="flex items-center px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors font-semibold"
+              className="flex items-center px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-all duration-200 shadow-sm hover:shadow-md font-semibold"
             >
               <span>Continue to Refine</span>
               <ArrowRight className="w-4 h-4 ml-2" />
@@ -128,14 +128,14 @@ export default function PromptsPage() {
         </div>
 
         {/* Example Prompts */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+        <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6">
           <h3 className="text-lg font-semibold text-blue-900 mb-4">Need inspiration? Try these examples:</h3>
           <div className="space-y-2">
             {examplePrompts.map((example, index) => (
               <button
                 key={index}
                 onClick={() => handleExampleClick(example)}
-                className="w-full text-left px-4 py-2 bg-white border border-blue-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors"
+                className="w-full text-left px-4 py-2 bg-white border border-blue-200 rounded-xl hover:border-blue-300 hover:bg-blue-50 transition-all duration-200"
               >
                 <span className="text-blue-800">"{example}"</span>
               </button>

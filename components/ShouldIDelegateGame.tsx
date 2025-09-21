@@ -289,8 +289,8 @@ const ShouldIDelegateGame: React.FC = () => {
 
   if (gameState === 'setup') {
     return (
-      <main className="min-h-screen bg-white" role="main">
-        <div className="animate-fade-in max-w-6xl mx-auto p-6">
+      <main className="min-h-screen bg-gray-50 flex items-center justify-center" role="main">
+        <div className="animate-fade-in max-w-4xl w-full p-8">
           {/* Header */}
           <div className="mb-8 text-center">
             <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
@@ -303,11 +303,11 @@ const ShouldIDelegateGame: React.FC = () => {
 
           {/* Content */}
           <div className="max-w-4xl mx-auto space-y-6">
-            <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 md:p-8">
+            <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm">
               <h2 className="text-2xl font-semibold text-gray-900 mb-4 md:mb-6">How This Works</h2>
               <div className="space-y-4 md:grid md:grid-cols-3 md:gap-6 md:space-y-0">
                 <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
                     <Timer className="w-4 h-4 text-blue-600" />
                   </div>
                   <div>
@@ -316,7 +316,7 @@ const ShouldIDelegateGame: React.FC = () => {
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
                     <Users className="w-4 h-4 text-green-600" />
                   </div>
                   <div>
@@ -325,7 +325,7 @@ const ShouldIDelegateGame: React.FC = () => {
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
                     <Trophy className="w-4 h-4 text-purple-600" />
                   </div>
                   <div>
@@ -338,7 +338,7 @@ const ShouldIDelegateGame: React.FC = () => {
 
             <button
               onClick={startGame}
-              className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-medium flex items-center justify-center space-x-2 hover:bg-blue-700 transition-colors"
+              className="w-full bg-blue-600 text-white py-4 px-6 rounded-xl font-medium flex items-center justify-center space-x-2 hover:bg-blue-700 transition-all duration-200 shadow-sm hover:shadow-md"
               aria-label="Start the AI delegation decision experience"
             >
               <Play className="w-5 h-5" />
@@ -355,8 +355,8 @@ const ShouldIDelegateGame: React.FC = () => {
     const percentage = Math.round((score / maxScore) * 100);
 
     return (
-      <div className="min-h-screen bg-white animate-fade-in">
-        <div className="max-w-6xl mx-auto p-6">
+      <div className="min-h-screen bg-gray-50 animate-fade-in flex items-center justify-center">
+        <div className="max-w-4xl w-full p-8">
           {/* Header */}
           <div className="mb-8 text-center">
             <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
@@ -369,18 +369,18 @@ const ShouldIDelegateGame: React.FC = () => {
           {/* Content */}
           <div className="max-w-4xl mx-auto space-y-6">
           {/* Score Card */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 md:p-8 text-center">
+          <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 md:p-8 text-center">
             <div className="text-4xl md:text-5xl lg:text-6xl font-bold text-blue-600 mb-1">{score}</div>
             <div className="text-sm md:text-base text-gray-600 mb-1">out of {maxScore} points</div>
             <div className="text-lg md:text-xl lg:text-2xl font-semibold text-gray-800">{percentage}% Accuracy</div>
           </div>
 
           {/* Key Insights */}
-          <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 md:p-8">
+          <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4 md:mb-6">Key Delegation Insights</h2>
             <div className="space-y-4 md:grid md:grid-cols-3 md:gap-6 md:space-y-0">
               <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
                   <CheckCircle className="w-4 h-4 text-green-600" />
                 </div>
                 <div>
@@ -389,7 +389,7 @@ const ShouldIDelegateGame: React.FC = () => {
                 </div>
               </div>
               <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
                   <Users className="w-4 h-4 text-blue-600" />
                 </div>
                 <div>
@@ -398,7 +398,7 @@ const ShouldIDelegateGame: React.FC = () => {
                 </div>
               </div>
               <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
                   <Trophy className="w-4 h-4 text-purple-600" />
                 </div>
                 <div>
@@ -412,7 +412,7 @@ const ShouldIDelegateGame: React.FC = () => {
           <div className="space-y-4">
             <button
               onClick={resetGame}
-              className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-medium flex items-center justify-center space-x-2 hover:bg-blue-700 transition-colors"
+              className="w-full bg-blue-600 text-white py-4 px-6 rounded-xl font-medium flex items-center justify-center space-x-2 hover:bg-blue-700 transition-all duration-200 shadow-sm hover:shadow-md"
               aria-label="Start the experience again from the beginning"
             >
               <RotateCcw className="w-5 h-5" />
@@ -428,7 +428,7 @@ const ShouldIDelegateGame: React.FC = () => {
             </Link>
 
             {/* Navigation to AI Fluency Tool */}
-            <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
+            <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
               <div className="flex items-center mb-3">
                 <MessageSquare className="w-5 h-5 text-blue-600 mr-2" />
                 <h3 className="text-lg font-semibold text-gray-900">Ready for Advanced AI Prompting?</h3>
@@ -438,7 +438,7 @@ const ShouldIDelegateGame: React.FC = () => {
               </p>
               <Link
                 href="/prompts"
-                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all duration-200 shadow-sm hover:shadow-md"
               >
                 <span>Try the AI Fluency Tool</span>
                 <MessageSquare className="w-4 h-4 ml-2" />
@@ -456,14 +456,14 @@ const ShouldIDelegateGame: React.FC = () => {
 
   return (
     <main
-      className="min-h-screen bg-white"
+      className="min-h-screen bg-gray-50 flex items-center justify-center"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
       role="main"
       aria-live="polite"
     >
-      <div className="max-w-6xl mx-auto p-6">
+      <div className="max-w-4xl w-full p-8">
         {/* Back Navigation */}
         <div className="mb-6">
           <Link
@@ -494,7 +494,7 @@ const ShouldIDelegateGame: React.FC = () => {
           </div>
 
           {/* Timer */}
-          <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+          <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center space-x-2">
                 <Clock className="w-4 h-4 text-gray-600" />
@@ -515,7 +515,7 @@ const ShouldIDelegateGame: React.FC = () => {
 
         {/* Scenario Card */}
         <div className="max-w-4xl mx-auto">
-          <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 md:p-8 mb-6">
+          <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 mb-6 shadow-sm">
             <div className="flex items-center mb-4">
               <span className="bg-blue-100 text-blue-700 text-xs font-medium px-3 py-1 rounded-full">{scenario.category}</span>
             </div>
@@ -528,12 +528,12 @@ const ShouldIDelegateGame: React.FC = () => {
               <button
                 onClick={() => makeDecision(true)}
                 disabled={timeLeft === 0}
-                className="w-full bg-green-600 text-white p-6 md:p-8 rounded-lg font-medium hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-green-600 text-white p-4 md:p-6 rounded-xl font-medium hover:bg-green-700 transition-all duration-200 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label="Choose to delegate this task to AI assistant"
                 aria-describedby="scenario-description"
               >
                 <div className="flex items-center justify-center space-x-3">
-                  <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                  <div className="w-8 h-8 bg-green-100 rounded-xl flex items-center justify-center">
                     <CheckCircle className="w-4 h-4 text-green-600" />
                   </div>
                   <div className="text-left">
@@ -544,12 +544,12 @@ const ShouldIDelegateGame: React.FC = () => {
               <button
                 onClick={() => makeDecision(false)}
                 disabled={timeLeft === 0}
-                className="w-full bg-red-600 text-white p-6 md:p-8 rounded-lg font-medium hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-red-600 text-white p-4 md:p-6 rounded-xl font-medium hover:bg-red-700 transition-all duration-200 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label="Choose to keep this task with human experts"
                 aria-describedby="scenario-description"
               >
                 <div className="flex items-center justify-center space-x-3">
-                  <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center">
+                  <div className="w-8 h-8 bg-red-100 rounded-xl flex items-center justify-center">
                     <Users className="w-4 h-4 text-red-600" />
                   </div>
                   <div className="text-left">
@@ -578,7 +578,7 @@ const ShouldIDelegateGame: React.FC = () => {
           {/* Feedback */}
           {showFeedback && (
             <div className="space-y-4 animate-slide-in">
-              <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 md:p-8">
+              <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm">
                 <div className="flex items-center mb-4">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center mr-3 ${
                     isCorrect ? 'bg-green-600' : 'bg-red-600'
@@ -601,16 +601,16 @@ const ShouldIDelegateGame: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="bg-white border border-gray-200 rounded-lg p-4 md:p-6 mb-4">
+                <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 md:p-6 mb-4">
                   <p className="text-base text-gray-700 leading-relaxed">
                     {isCorrect ? scenario.feedback.correct : scenario.feedback.incorrect}
                   </p>
                 </div>
 
                 {!isCorrect && scenario.funnyWrong && (
-                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                  <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
                     <div className="flex items-start space-x-3">
-                      <div className="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 bg-yellow-100 rounded-xl flex items-center justify-center flex-shrink-0">
                         <span className="text-sm">💭</span>
                       </div>
                       <div>
@@ -624,7 +624,7 @@ const ShouldIDelegateGame: React.FC = () => {
 
               <button
                 onClick={nextScenario}
-                className="w-full bg-blue-600 text-white py-4 md:py-6 px-6 md:px-8 rounded-lg font-medium text-lg hover:bg-blue-700 transition-colors"
+                className="w-full bg-blue-600 text-white py-4 md:py-6 px-6 md:px-8 rounded-xl font-medium text-lg hover:bg-blue-700 transition-all duration-200 shadow-sm hover:shadow-md"
                 aria-label={currentScenario < scenarios.length - 1 ? 'Continue to next scenario' : 'View final results and summary'}
               >
                 {currentScenario < scenarios.length - 1 ? (

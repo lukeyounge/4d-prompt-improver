@@ -307,11 +307,11 @@ const RefinePage = () => {
   const hasValidInputs = Object.values(improvementInputs).some(input => input.trim().length > 0);
 
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-white min-h-screen">
+    <div className="max-w-4xl mx-auto p-8 bg-gray-50 min-h-screen">
       <div className="mb-6">
         <Link
           href="/prompts"
-          className="flex items-center text-gray-600 hover:text-gray-800 transition-colors"
+          className="flex items-center text-gray-600 hover:text-gray-800 transition-all duration-200"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Prompts
@@ -325,7 +325,7 @@ const RefinePage = () => {
 
       <div className="max-w-4xl mx-auto">
         {/* Improvement Tips */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-8">
           <h2 className="text-lg font-semibold text-blue-900 mb-4">Tips for Better AI Communication</h2>
           <div className="grid md:grid-cols-2 gap-4 text-sm text-blue-800">
             <div className="space-y-2">
@@ -360,7 +360,7 @@ const RefinePage = () => {
         </div>
 
         {/* Show the basic prompt */}
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8">
+        <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-8 shadow-sm">
           <h2 className="text-lg font-semibold text-gray-900 mb-3">Your Starting Prompt</h2>
           {isLoading ? (
             <p className="text-gray-500">Loading your prompt...</p>
@@ -376,7 +376,7 @@ const RefinePage = () => {
             {/* Improvement sections */}
             <div className="space-y-8">
               {/* Product Section */}
-              <div className="bg-green-50 border border-green-200 rounded-lg p-6">
+              <div className="bg-green-50 border border-green-200 rounded-xl p-6">
                 <div className="flex items-center mb-4">
                   <Target className="w-5 h-5 text-green-600 mr-2" />
                   <h3 className="text-xl font-semibold text-green-900">Product: What & Why</h3>
@@ -430,7 +430,7 @@ const RefinePage = () => {
               </div>
 
               {/* Process Section */}
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
                 <div className="flex items-center mb-4">
                   <Settings className="w-5 h-5 text-blue-600 mr-2" />
                   <h3 className="text-xl font-semibold text-blue-900">Process: How</h3>
@@ -484,7 +484,7 @@ const RefinePage = () => {
               </div>
 
               {/* Performance Section */}
-              <div className="bg-purple-50 border border-purple-200 rounded-lg p-6">
+              <div className="bg-purple-50 border border-purple-200 rounded-xl p-6">
                 <div className="flex items-center mb-4">
                   <MessageSquare className="w-5 h-5 text-purple-600 mr-2" />
                   <h3 className="text-xl font-semibold text-purple-900">Performance: How We Work Together</h3>
@@ -540,7 +540,7 @@ const RefinePage = () => {
 
             {/* Chat Section */}
             {hasAnySelections && hasValidInputs && (
-              <div className="mt-8 bg-gray-50 border border-gray-200 rounded-lg p-6">
+              <div className="mt-8 bg-gray-50 border border-gray-200 rounded-xl p-6">
                 <div className="flex items-center mb-4">
                   <MessageSquare className="w-5 h-5 text-gray-600 mr-2" />
                   <h3 className="text-xl font-semibold text-gray-900">Test Your Enhanced Prompt</h3>
@@ -551,19 +551,19 @@ const RefinePage = () => {
                 {messages.length === 0 && !isChattingWithClaude && (
                   <button
                     onClick={startChatWithClaude}
-                    className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+                    className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all duration-200 shadow-sm hover:shadow-md font-semibold"
                   >
                     <MessageSquare className="w-5 h-5 mr-2" />
                     Start Conversation with Enhanced Prompt
                   </button>
                 )}
                 {(messages.length > 0 || isChattingWithClaude) && (
-                  <div className="bg-white border border-purple-200 rounded-lg p-4 mb-4">
+                  <div className="bg-white border border-purple-200 rounded-2xl p-4 mb-4 shadow-sm">
                     <div className="h-96 overflow-y-auto mb-4 space-y-4">
                       {messages.map((message, index) => (
                         <div
                           key={index}
-                          className={`p-3 rounded-lg ${
+                          className={`p-3 rounded-xl ${
                             message.role === 'user'
                               ? 'bg-blue-50 border border-blue-200 ml-12'
                               : 'bg-gray-50 border border-gray-200 mr-12'
@@ -581,7 +581,7 @@ const RefinePage = () => {
                         </div>
                       ))}
                       {isChattingWithClaude && (
-                        <div className="bg-gray-50 border border-gray-200 mr-12 p-3 rounded-lg">
+                        <div className="bg-gray-50 border border-gray-200 mr-12 p-3 rounded-xl">
                           <div className="text-xs font-semibold mb-1 text-gray-600">CLAUDE</div>
                           <div className="flex items-center text-gray-600">
                             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600 mr-2"></div>
@@ -604,7 +604,7 @@ const RefinePage = () => {
                         <button
                           onClick={sendMessage}
                           disabled={!currentMessage.trim() || isChattingWithClaude}
-                          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-all duration-200"
                         >
                           <Send className="w-4 h-4" />
                         </button>
@@ -614,7 +614,7 @@ const RefinePage = () => {
                 )}
 
                 {chatError && (
-                  <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                  <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-4">
                     <p className="text-red-800 font-medium">Error: {chatError}</p>
                     <button
                       onClick={messages.length === 0 ? startChatWithClaude : sendMessage}
@@ -626,7 +626,7 @@ const RefinePage = () => {
                 )}
 
                 {messages.length > 0 && (
-                  <div className="mt-4 bg-green-50 border border-green-200 rounded-lg p-3">
+                  <div className="mt-4 bg-green-50 border border-green-200 rounded-xl p-3">
                     <p className="text-green-800 text-sm">
                       Great! You\\'re testing how your enhanced prompt performs. When you\\'re ready, move to the analysis phase to review your conversation.
                     </p>
@@ -641,7 +641,7 @@ const RefinePage = () => {
                 <div className="border-t border-gray-200 w-full max-w-md my-4"></div>
                 <Link
                   href="/analysis"
-                  className="flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-lg font-semibold"
+                  className="flex items-center px-8 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all duration-200 shadow-sm hover:shadow-md text-lg font-semibold"
                 >
                   <ArrowRight className="w-5 h-5 mr-2" />
                   Analyze Your Conversation
