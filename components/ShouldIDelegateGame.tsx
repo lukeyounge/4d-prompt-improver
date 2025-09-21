@@ -33,69 +33,113 @@ const ShouldIDelegateGame: React.FC = () => {
   const scenarios: Scenario[] = useMemo(() => [
     {
       id: 1,
-      category: "Teacher Task",
-      scenario: "Ms. Johnson needs to create 25 different math word problems about fractions for tomorrow's worksheet.",
+      category: "Content Generation",
+      scenario: "Creating 25 word problems about percentages for Grade 7 mathematics practice.",
       shouldDelegate: true,
       feedback: {
-        correct: "✅ Smart choice! AI can generate varied practice problems efficiently, letting Ms. Johnson focus on reviewing them and planning instruction.",
-        incorrect: "❌ Oops! This is perfect for AI - generating problem variations saves hours and lets teachers focus on pedagogy."
+        correct: "✅ Smart choice! AI can generate varied problem scenarios whilst you review and adjust them for your specific learners' contexts and abilities.",
+        incorrect: "❌ This is perfect for AI assistance! It can create diverse problem variations, saving you hours whilst you focus on reviewing quality and relevance."
       },
-      funnyWrong: "Ms. Johnson stayed up until 2 AM writing 'Sally has 3/4 of a pizza...' for the 23rd time! 😴"
+      funnyWrong: "You stayed up until midnight writing 'Sarah spent 25% of her money...' for the 20th time! 😴"
     },
     {
       id: 2,
-      category: "Student Support",
-      scenario: "A student asks if AI can help them understand why their answer to a chemistry problem is wrong.",
-      shouldDelegate: true,
+      category: "Individual Assessment",
+      scenario: "Determining which learners in your class need additional literacy support based on their classroom participation and reading behaviours.",
+      shouldDelegate: false,
       feedback: {
-        correct: "✅ Great! AI can provide step-by-step explanations and catch conceptual gaps, supporting learning perfectly.",
-        incorrect: "❌ This is actually ideal for AI - it can give patient, detailed explanations that help students learn from mistakes."
+        correct: "✅ Exactly right! This requires your direct observations, knowledge of individual learners, and professional assessment skills that AI cannot replicate.",
+        incorrect: "❌ This needs your human expertise! You observe daily interactions, reading struggles, and individual needs that AI has never seen."
       },
-      funnyWrong: "The student is still staring at their wrong answer, wondering if osmosis will help it become correct! 🤔"
+      funnyWrong: "AI analyzed screen time and recommended literacy support for the student who blinks most slowly! 👀"
     },
     {
       id: 3,
-      category: "Leadership Decision",
-      scenario: "The principal needs to decide which three teachers should receive extra professional development support this year.",
-      shouldDelegate: false,
+      category: "Research & Policy",
+      scenario: "Researching current approaches to mobile phone policies in schools to inform your updated school guidelines.",
+      shouldDelegate: true,
       feedback: {
-        correct: "✅ Absolutely right! This requires human judgment about individual teachers, relationships, and professional growth needs.",
-        incorrect: "❌ Yikes! AI doesn't know your teachers personally or understand the nuanced professional relationships involved."
+        correct: "✅ Perfect collaboration! AI can research policies and trends whilst you evaluate what fits your school culture and community needs.",
+        incorrect: "❌ Let AI help with the research legwork! It can gather policy examples and research whilst you focus on adapting them to your context."
       },
-      funnyWrong: "AI just recommended sending the three teachers with the most vowels in their names to training! 🤖"
+      funnyWrong: "You're on page 47 of policy documents, wondering if phones existed when you started reading! 📱"
     },
     {
       id: 4,
-      category: "Student Assessment",
-      scenario: "Determining which students in the class are struggling with reading comprehension and need additional support.",
+      category: "Sensitive Parent Issue",
+      scenario: "Responding to a parent's concern about their child being excluded from friend groups during break time.",
       shouldDelegate: false,
       feedback: {
-        correct: "✅ Exactly! This requires teacher observation, understanding of individual students, and professional assessment skills.",
-        incorrect: "❌ This needs human expertise! Teachers observe student behavior, engagement, and individual needs that AI can't assess."
+        correct: "✅ Absolutely! This requires empathy, understanding of social dynamics, and relationship management skills that only humans can provide.",
+        incorrect: "❌ This needs your human touch! Parent relationships and social-emotional issues require empathy and personal understanding."
       },
-      funnyWrong: "AI analyzed typing speed and concluded that slow typers need reading help. Plot twist: some are just careful! ⌨️"
+      funnyWrong: "AI suggested solving friendship issues with a spreadsheet of compatible personality types! 📊"
     },
     {
       id: 5,
-      category: "Content Creation",
-      scenario: "Creating a template email to send to parents about the upcoming science fair.",
+      category: "Administrative Communication",
+      scenario: "Writing a newsletter update to parents about the upcoming athletics day events and schedule.",
       shouldDelegate: true,
       feedback: {
-        correct: "✅ Perfect delegation! AI can draft professional communication templates that you can personalize and review.",
-        incorrect: "❌ This is ideal for AI! It can create professional communication drafts, saving time for more important work."
+        correct: "✅ Great delegation! AI can draft the structure and content whilst you add school-specific details and your personal communication style.",
+        incorrect: "❌ Perfect task for AI assistance! Let it handle the drafting whilst you focus on personalising and adding important details."
       },
-      funnyWrong: "Three hours later, you're still trying to decide between 'Dear Parents' and 'Greetings, Guardians'! 📧"
+      funnyWrong: "Three hours later, you're still debating whether to say 'sports day' or 'athletics carnival'! 🏃‍♀️"
     },
     {
       id: 6,
-      category: "Curriculum Planning",
-      scenario: "Deciding which novel to teach in 9th grade English based on your specific students' interests and maturity levels.",
+      category: "Curriculum Decision",
+      scenario: "Choosing which poems to include in your Grade 10 English curriculum based on your learners' cultural backgrounds and language proficiency.",
       shouldDelegate: false,
       feedback: {
-        correct: "✅ Spot on! This requires deep knowledge of your students, community context, and professional curriculum judgment.",
-        incorrect: "❌ This needs your expertise! You know your students' backgrounds, interests, and what will engage them effectively."
+        correct: "✅ Spot on! This requires deep knowledge of your specific learners, their backgrounds, and what will resonate with your classroom community.",
+        incorrect: "❌ This needs your professional expertise! You know your learners' interests, cultural contexts, and reading levels better than any AI."
       },
-      funnyWrong: "AI recommended 'War and Peace' because it has the most pages and therefore must be the most educational! 📚"
+      funnyWrong: "AI recommended poems based on alphabetical order because 'A' clearly stands for 'Absolutely perfect'! 📝"
+    },
+    {
+      id: 7,
+      category: "Lesson Planning Support",
+      scenario: "Creating a lesson plan on ecosystems for Grade 6 learners, including activities that work with your available resources.",
+      shouldDelegate: true,
+      feedback: {
+        correct: "✅ Smart approach! AI can suggest activities and structure whilst you adapt everything to your specific resources and learners' needs.",
+        incorrect: "❌ Let AI help with the planning framework! It can generate ideas whilst you customise based on your classroom reality."
+      },
+      funnyWrong: "You're still googling 'creative ecosystem activities' at 11 PM with three browser tabs open! 🌿"
+    },
+    {
+      id: 8,
+      category: "Staff Relationship Decision",
+      scenario: "Deciding which teacher should mentor the new student teacher based on their teaching styles and interpersonal dynamics.",
+      shouldDelegate: false,
+      feedback: {
+        correct: "✅ Perfect judgement! This requires understanding personalities, teaching approaches, and relationship dynamics that only humans can assess.",
+        incorrect: "❌ This needs human insight! Professional relationships and mentoring matches require understanding people's personalities and working styles."
+      },
+      funnyWrong: "AI matched mentors based on coffee preferences because 'shared caffeine habits build strong bonds'! ☕"
+    },
+    {
+      id: 9,
+      category: "Data Organisation",
+      scenario: "Creating a summary of your class's test results showing progress trends and areas needing attention.",
+      shouldDelegate: true,
+      feedback: {
+        correct: "✅ Excellent choice! AI can organise and visualise the data whilst you interpret what it means for your specific learners and instruction.",
+        incorrect: "❌ Perfect for AI assistance! Let it handle data organisation whilst you focus on interpreting results and planning next steps."
+      },
+      funnyWrong: "You're drowning in spreadsheets, wondering if mathematical formulas can solve your organisational chaos! 📊"
+    },
+    {
+      id: 10,
+      category: "Classroom Management",
+      scenario: "Developing behaviour intervention strategies for a learner who struggles with attention and classroom disruptions.",
+      shouldDelegate: false,
+      feedback: {
+        correct: "✅ Absolutely right! This requires understanding the individual child, their triggers, and building relationship-based solutions.",
+        incorrect: "❌ This needs your human expertise! Individual behaviour plans require understanding the child's needs, family context, and classroom dynamics."
+      },
+      funnyWrong: "AI suggested a behaviour chart with 47 different emoji categories for emotional states! 😵‍💫"
     }
   ], []);
 
@@ -493,8 +537,7 @@ const ShouldIDelegateGame: React.FC = () => {
                     <CheckCircle className="w-4 h-4 text-green-600" />
                   </div>
                   <div className="text-left">
-                    <div className="text-sm opacity-90">DELEGATE TO</div>
-                    <div className="text-lg font-semibold">AI Assistant</div>
+                    <div className="text-lg font-semibold">AI CAN HELP</div>
                   </div>
                 </div>
               </button>
@@ -510,8 +553,7 @@ const ShouldIDelegateGame: React.FC = () => {
                     <Users className="w-4 h-4 text-red-600" />
                   </div>
                   <div className="text-left">
-                    <div className="text-sm opacity-90">KEEP WITH</div>
-                    <div className="text-lg font-semibold">Human Expert</div>
+                    <div className="text-lg font-semibold">HUMANS ONLY</div>
                   </div>
                 </div>
               </button>
