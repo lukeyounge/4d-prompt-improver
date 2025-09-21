@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, Brain, MessageSquare, BarChart3 } from 'lucide-react';
+import { ArrowLeft, Brain, MessageSquare, BarChart3, QrCode } from 'lucide-react';
+import QRCode from 'qrcode';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -13,6 +14,7 @@ export default function AnalysisPage() {
   const [analysis, setAnalysis] = useState<string>('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [hasLoadedHistory, setHasLoadedHistory] = useState(false);
+  const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string | null>(null);
 
   // Load chat history from localStorage
   useEffect(() => {
@@ -52,14 +54,14 @@ Look for evidence of discernment in three areas:
 - Process: Did they notice if AI's reasoning made sense or got off track?
 - Performance: Did they guide AI's communication style effectively?
 
-Write a brief, appreciative assessment in plain text (no markdown, asterisks, or formatting). Structure it as:
+Write a brief, balanced assessment in plain text (no markdown, asterisks, or formatting). Be appreciative but honest. Structure it as:
 
 1. Start with something positive they did well
 2. Mention 2-3 specific strengths you noticed
-3. Suggest 1-2 gentle improvements for next time
+3. Give 1-2 constructive areas for improvement (be specific about what they could do better)
 4. End encouragingly
 
-Keep it conversational, supportive, and under 150 words.
+Be honest about areas needing improvement while maintaining a supportive tone. Keep it conversational and under 150 words.
 
 Conversation:
 ${conversationText}`
@@ -75,6 +77,52 @@ ${conversationText}`
       setAnalysis('Failed to analyze conversation. Please try again.');
     } finally {
       setIsAnalyzing(false);
+    }
+  };
+
+  const generateDocumentQRCode = async () => {
+    if (chatHistory.length === 0) return;
+
+    try {
+      // Get only the last Claude response (the final document)
+      const lastAssistantMessage = chatHistory
+        .filter(msg => msg.role === 'assistant')
+        .pop(); // Get the last one
+
+      if (!lastAssistantMessage) {
+        throw new Error('No document found');
+      }
+
+      const documentContent = lastAssistantMessage.content;
+
+      // Store the document on the server
+      const response = await fetch('/api/document', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: documentContent })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to store document');
+      }
+
+      const { id } = await response.json();
+      
+      // Create URL to the document page
+      const documentUrl = `${window.location.origin}/document/${id}`;
+
+      // Generate QR code for the document URL
+      const qrCodeUrl = await QRCode.toDataURL(documentUrl, {
+        width: 256,
+        margin: 2,
+        color: {
+          dark: '#000000',
+          light: '#FFFFFF'
+        }
+      });
+      setQrCodeDataUrl(qrCodeUrl);
+    } catch (error) {
+      console.error('Error generating QR code:', error);
     }
   };
 
@@ -171,6 +219,47 @@ ${conversationText}`
             </p>
           )}
         </div>
+
+        {/* Copy My Document Section */}
+        {chatHistory.length > 0 && (
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div className="flex items-center mb-3">
+              <QrCode className="w-5 h-5 text-blue-600 mr-2" />
+              <h3 className="font-semibold text-blue-900">Copy My Document</h3>
+            </div>
+            <p className="text-blue-800 text-sm mb-3">
+              Get a QR code to access your document on your phone:
+            </p>
+            
+            <div className="flex flex-col items-center space-y-3">
+              {!qrCodeDataUrl && (
+                <button
+                  onClick={generateDocumentQRCode}
+                  className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                >
+                  <QrCode className="w-4 h-4 mr-2" />
+                  Copy My Document
+                </button>
+              )}
+              
+              {qrCodeDataUrl && (
+                <div className="bg-white p-4 rounded-lg border border-blue-200">
+                  <img 
+                    src={qrCodeDataUrl} 
+                    alt="QR Code to email document" 
+                    className="w-48 h-48"
+                  />
+                </div>
+              )}
+              
+              {qrCodeDataUrl && (
+                <p className="text-blue-700 text-xs text-center max-w-sm">
+                  Point your phone's camera at the QR code, then tap the notification to open your email app with the document ready to send.
+                </p>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

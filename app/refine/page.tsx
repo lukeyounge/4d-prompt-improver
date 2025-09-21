@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Copy, CheckCircle, Target, Settings, MessageSquare, ArrowRight, Plus, Zap, Send, ArrowLeft } from 'lucide-react';
+import { Copy, CheckCircle, Target, Settings, MessageSquare, ArrowRight, Plus, Zap, Send, ArrowLeft, QrCode } from 'lucide-react';
+import QRCode from 'qrcode';
 
 const RefinePage = () => {
   const [basicPrompt, setBasicPrompt] = useState('');
@@ -25,6 +26,7 @@ const RefinePage = () => {
   const [currentMessage, setCurrentMessage] = useState('');
   const [isChattingWithClaude, setIsChattingWithClaude] = useState(false);
   const [chatError, setChatError] = useState<string | null>(null);
+  const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string | null>(null);
 
   // Save chat history to localStorage whenever messages change
   useEffect(() => {
@@ -137,6 +139,52 @@ const RefinePage = () => {
 
   const closeInput = () => {
     setActiveInput(null);
+  };
+
+  const generateDocumentQRCode = async () => {
+    if (messages.length === 0) return;
+
+    try {
+      // Get only the last Claude response (the final document)
+      const lastAssistantMessage = messages
+        .filter(msg => msg.role === 'assistant')
+        .pop(); // Get the last one
+
+      if (!lastAssistantMessage) {
+        throw new Error('No document found');
+      }
+
+      const documentContent = lastAssistantMessage.content;
+
+      // Store the document on the server
+      const response = await fetch('/api/document', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: documentContent })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to store document');
+      }
+
+      const { id } = await response.json();
+      
+      // Create URL to the document page
+      const documentUrl = `${window.location.origin}/document/${id}`;
+
+      // Generate QR code for the document URL
+      const qrCodeUrl = await QRCode.toDataURL(documentUrl, {
+        width: 256,
+        margin: 2,
+        color: {
+          dark: '#000000',
+          light: '#FFFFFF'
+        }
+      });
+      setQrCodeDataUrl(qrCodeUrl);
+    } catch (error) {
+      console.error('Error generating QR code:', error);
+    }
   };
 
   const generateImprovedPrompt = () => {
@@ -645,6 +693,47 @@ const RefinePage = () => {
                     <p className="text-green-800 text-sm">
                       Great! You're testing how your enhanced prompt performs. When you're ready, move to the analysis phase to review your conversation.
                     </p>
+                  </div>
+                )}
+
+                {/* Copy My Document Section */}
+                {messages.length > 0 && (
+                  <div className="mt-4 bg-blue-50 border border-blue-200 rounded-xl p-4">
+                    <div className="flex items-center mb-3">
+                      <QrCode className="w-5 h-5 text-blue-600 mr-2" />
+                      <h4 className="font-semibold text-blue-900">Copy My Document</h4>
+                    </div>
+                    <p className="text-blue-800 text-sm mb-3">
+                      Get a QR code to access your document on your phone:
+                    </p>
+                    
+                    <div className="flex flex-col items-center space-y-3">
+                      {!qrCodeDataUrl && (
+                        <button
+                          onClick={generateDocumentQRCode}
+                          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                        >
+                          <QrCode className="w-4 h-4 mr-2" />
+                          Copy My Document
+                        </button>
+                      )}
+                      
+                      {qrCodeDataUrl && (
+                        <div className="bg-white p-4 rounded-lg border border-blue-200">
+                          <img 
+                            src={qrCodeDataUrl} 
+                            alt="QR Code to email document" 
+                            className="w-48 h-48"
+                          />
+                        </div>
+                      )}
+                      
+                      {qrCodeDataUrl && (
+                        <p className="text-blue-700 text-xs text-center max-w-sm">
+                          Point your phone's camera at the QR code to open your document. You can then copy it or email it to yourself.
+                        </p>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>

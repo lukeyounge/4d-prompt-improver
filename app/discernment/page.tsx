@@ -53,14 +53,14 @@ Look for evidence of discernment in three areas:
 - Process: Did they notice if AI's reasoning made sense or got off track?
 - Performance: Did they guide AI's communication style effectively?
 
-Write a brief, appreciative assessment in plain text (no markdown, asterisks, or formatting). Structure it as:
+Write a brief, balanced assessment in plain text (no markdown, asterisks, or formatting). Be appreciative but honest. Structure it as:
 
 1. Start with something positive they did well
 2. Mention 2-3 specific strengths you noticed
-3. Suggest 1-2 gentle improvements for next time
+3. Give 1-2 constructive areas for improvement (be specific about what they could do better)
 4. End encouragingly
 
-Keep it conversational, supportive, and under 150 words.
+Be honest about areas needing improvement while maintaining a supportive tone. Keep it conversational and under 150 words.
 
 Conversation:
 ${conversationText}`
