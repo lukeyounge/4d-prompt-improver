@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
-import { Users, Clock, CheckCircle, XCircle, Trophy, Play, RotateCcw, Timer, MessageSquare } from 'lucide-react';
+import { Users, Clock, CheckCircle, XCircle, Trophy, Play, RotateCcw, Timer, MessageSquare, ArrowLeft } from 'lucide-react';
 
 interface Scenario {
   id: number;
@@ -420,6 +420,17 @@ const ShouldIDelegateGame: React.FC = () => {
       aria-live="polite"
     >
       <div className="max-w-6xl mx-auto p-6">
+        {/* Back Navigation */}
+        <div className="mb-6">
+          <Link
+            href="/"
+            className="flex items-center text-gray-600 hover:text-gray-800 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Home
+          </Link>
+        </div>
+
         {/* Header */}
         <div className="mb-6">
           <div className="flex flex-col md:flex-row items-center justify-between mb-4 space-y-4 md:space-y-0">

@@ -1,9 +1,9 @@
-import ShouldIDelegateGame from '@/components/ShouldIDelegateGame'
+import HomePage from '@/components/HomePage'
 
 export default function Home() {
   return (
     <main>
-      <ShouldIDelegateGame />
+      <HomePage />
     </main>
   )
 }
