@@ -13,7 +13,6 @@ interface Scenario {
     correct: string;
     incorrect: string;
   };
-  funnyWrong: string;
 }
 
 type GameState = 'setup' | 'playing' | 'results' | 'finished';
@@ -40,7 +39,6 @@ const ShouldIDelegateGame: React.FC = () => {
         correct: "✅ Smart choice! AI can generate varied problem scenarios whilst you review and adjust them for your specific learners' contexts and abilities.",
         incorrect: "❌ This is perfect for AI assistance! It can create diverse problem variations, saving you hours whilst you focus on reviewing quality and relevance."
       },
-      funnyWrong: "You stayed up until midnight writing 'Sarah spent 25% of her money...' for the 20th time! 😴"
     },
     {
       id: 2,
@@ -51,7 +49,6 @@ const ShouldIDelegateGame: React.FC = () => {
         correct: "✅ Exactly right! This requires your direct observations, knowledge of individual learners, and professional assessment skills that AI cannot replicate.",
         incorrect: "❌ This needs your human expertise! You observe daily interactions, reading struggles, and individual needs that AI has never seen."
       },
-      funnyWrong: "AI analyzed screen time and recommended literacy support for the student who blinks most slowly! 👀"
     },
     {
       id: 3,
@@ -62,7 +59,6 @@ const ShouldIDelegateGame: React.FC = () => {
         correct: "✅ Perfect collaboration! AI can research policies and trends whilst you evaluate what fits your school culture and community needs.",
         incorrect: "❌ Let AI help with the research legwork! It can gather policy examples and research whilst you focus on adapting them to your context."
       },
-      funnyWrong: "You're on page 47 of policy documents, wondering if phones existed when you started reading! 📱"
     },
     {
       id: 4,
@@ -73,7 +69,6 @@ const ShouldIDelegateGame: React.FC = () => {
         correct: "✅ Absolutely! This requires empathy, understanding of social dynamics, and relationship management skills that only humans can provide.",
         incorrect: "❌ This needs your human touch! Parent relationships and social-emotional issues require empathy and personal understanding."
       },
-      funnyWrong: "AI suggested solving friendship issues with a spreadsheet of compatible personality types! 📊"
     },
     {
       id: 5,
@@ -84,7 +79,6 @@ const ShouldIDelegateGame: React.FC = () => {
         correct: "✅ Great delegation! AI can draft the structure and content whilst you add school-specific details and your personal communication style.",
         incorrect: "❌ Perfect task for AI assistance! Let it handle the drafting whilst you focus on personalising and adding important details."
       },
-      funnyWrong: "Three hours later, you're still debating whether to say 'sports day' or 'athletics carnival'! 🏃‍♀️"
     },
     {
       id: 6,
@@ -95,7 +89,6 @@ const ShouldIDelegateGame: React.FC = () => {
         correct: "✅ Spot on! This requires deep knowledge of your specific learners, their backgrounds, and what will resonate with your classroom community.",
         incorrect: "❌ This needs your professional expertise! You know your learners' interests, cultural contexts, and reading levels better than any AI."
       },
-      funnyWrong: "AI recommended poems based on alphabetical order because 'A' clearly stands for 'Absolutely perfect'! 📝"
     },
     {
       id: 7,
@@ -106,7 +99,6 @@ const ShouldIDelegateGame: React.FC = () => {
         correct: "✅ Smart approach! AI can suggest activities and structure whilst you adapt everything to your specific resources and learners' needs.",
         incorrect: "❌ Let AI help with the planning framework! It can generate ideas whilst you customise based on your classroom reality."
       },
-      funnyWrong: "You're still googling 'creative ecosystem activities' at 11 PM with three browser tabs open! 🌿"
     },
     {
       id: 8,
@@ -117,7 +109,6 @@ const ShouldIDelegateGame: React.FC = () => {
         correct: "✅ Perfect judgement! This requires understanding personalities, teaching approaches, and relationship dynamics that only humans can assess.",
         incorrect: "❌ This needs human insight! Professional relationships and mentoring matches require understanding people's personalities and working styles."
       },
-      funnyWrong: "AI matched mentors based on coffee preferences because 'shared caffeine habits build strong bonds'! ☕"
     },
     {
       id: 9,
@@ -128,7 +119,6 @@ const ShouldIDelegateGame: React.FC = () => {
         correct: "✅ Excellent choice! AI can organise and visualise the data whilst you interpret what it means for your specific learners and instruction.",
         incorrect: "❌ Perfect for AI assistance! Let it handle data organisation whilst you focus on interpreting results and planning next steps."
       },
-      funnyWrong: "You're drowning in spreadsheets, wondering if mathematical formulas can solve your organisational chaos! 📊"
     },
     {
       id: 10,
@@ -139,7 +129,6 @@ const ShouldIDelegateGame: React.FC = () => {
         correct: "✅ Absolutely right! This requires understanding the individual child, their triggers, and building relationship-based solutions.",
         incorrect: "❌ This needs your human expertise! Individual behaviour plans require understanding the child's needs, family context, and classroom dynamics."
       },
-      funnyWrong: "AI suggested a behaviour chart with 47 different emoji categories for emotional states! 😵‍💫"
     }
   ], []);
 
@@ -607,19 +596,6 @@ const ShouldIDelegateGame: React.FC = () => {
                   </p>
                 </div>
 
-                {!isCorrect && scenario.funnyWrong && (
-                  <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
-                    <div className="flex items-start space-x-3">
-                      <div className="w-8 h-8 bg-yellow-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <span className="text-sm">💭</span>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-800 text-base mb-1">What might happen instead?</h4>
-                        <p className="text-sm text-gray-700">{scenario.funnyWrong}</p>
-                      </div>
-                    </div>
-                  </div>
-                )}
               </div>
 
               <button
