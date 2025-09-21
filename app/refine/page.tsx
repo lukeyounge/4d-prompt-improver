@@ -18,6 +18,7 @@ const RefinePage = () => {
   });
   const [improvementInputs, setImprovementInputs] = useState<{[key: string]: string}>({});
   const [activeInput, setActiveInput] = useState<string | null>(null);
+  const [visibleHints, setVisibleHints] = useState<{[key: string]: boolean}>({});
 
   // Chatbot state
   const [messages, setMessages] = useState<Array<{role: 'user' | 'assistant', content: string}>>([]);
@@ -45,43 +46,52 @@ const RefinePage = () => {
     product: [
       {
         id: 'context',
-        text: 'Add context about your audience, setting, or situation'
+        text: 'Give context: Be specific about what you want, why you want it, and relevant background',
+        hint: 'Example: "This is for school governing body members at a 500-student school considering AI next year."'
       },
       {
-        id: 'purpose',
-        text: 'Clarify the specific purpose or goal'
+        id: 'examples',
+        text: 'Show examples: Demonstrate the output style or format you\'re looking for',
+        hint: 'Example: "Make it a one-page brief with bullet points and clear headings."'
       },
       {
         id: 'constraints',
-        text: 'Specify important constraints or limitations'
+        text: 'Specify constraints: Clearly define format, length, and other output requirements',
+        hint: 'Example: "One page only, professional language, 5-7 key points, printable."'
       }
     ],
     process: [
       {
-        id: 'approach',
-        text: 'Describe your preferred approach or methodology'
+        id: 'data_sources',
+        text: 'Data Sources: Are there specific data you want the AI to use?',
+        hint: 'Example: "Focus on human strengths like empathy, creativity, and relationships."'
       },
       {
-        id: 'sequence',
-        text: 'Outline the sequence or steps you want'
+        id: 'order_operations',
+        text: 'Order of Operations: Are there specific issues it needs to address, and should it be done in a particular order?',
+        hint: 'Example: "1) What makes teachers unique, 2) How they work with AI, 3) Tips for school leaders."'
       },
       {
-        id: 'examples',
-        text: 'Request specific examples or formats'
+        id: 'analysis_techniques',
+        text: 'Analysis and Techniques: Is there a particular style of analysis, workflow, or technique you want the AI to use?',
+        hint: 'Example: "Compare what humans do well vs what AI does well, then make it practical."'
       }
     ],
     performance: [
       {
         id: 'collaboration',
-        text: 'Set expectations for how you want to collaborate'
+        text: 'Set expectations for how you want to collaborate',
+        hint: 'Example: "Ask questions if unclear and suggest improvements."'
       },
       {
         id: 'communication',
-        text: 'Specify your preferred communication style'
+        text: 'Specify your preferred communication style',
+        hint: 'Example: "Be direct and practical. Use simple language."'
       },
       {
-        id: 'feedback',
-        text: 'Describe how you want to give and receive feedback'
+        id: 'role',
+        text: 'Define the AI\'s role or tone: Specify how you want the AI to communicate',
+        hint: 'Example: "Write as an education expert who values both AI and teachers."'
       }
     ]
   };
@@ -99,12 +109,20 @@ const RefinePage = () => {
         delete updated[improvement.id];
         return updated;
       });
+      setVisibleHints(prev => ({
+        ...prev,
+        [improvement.id]: false
+      }));
       setActiveInput(null);
     } else {
-      // Add to selected and open input
+      // Add to selected, show hint, and open input
       setSelectedImprovements(prev => ({
         ...prev,
         [category]: [...prev[category], improvement.id]
+      }));
+      setVisibleHints(prev => ({
+        ...prev,
+        [improvement.id]: true
       }));
       setActiveInput(improvement.id);
     }
@@ -139,9 +157,8 @@ const RefinePage = () => {
       })).filter(item => item.input);
 
       if (productInputs.length > 0) {
-        sections.push('\n**Context & Request:**');
         productInputs.forEach(item => {
-          sections.push(item.input);
+          sections.push('\n' + item.input);
         });
       }
     }
@@ -154,9 +171,8 @@ const RefinePage = () => {
       })).filter(item => item.input);
 
       if (processInputs.length > 0) {
-        sections.push('\n**Process to follow:**');
         processInputs.forEach(item => {
-          sections.push(`- ${item.input}`);
+          sections.push('\n' + item.input);
         });
       }
     }
@@ -169,9 +185,8 @@ const RefinePage = () => {
       })).filter(item => item.input);
 
       if (performanceInputs.length > 0) {
-        sections.push('\n**Communication approach:**');
         performanceInputs.forEach(item => {
-          sections.push(`- ${item.input}`);
+          sections.push('\n' + item.input);
         });
       }
     }
@@ -324,42 +339,7 @@ const RefinePage = () => {
       </div>
 
       <div className="max-w-4xl mx-auto">
-        {/* Improvement Tips */}
-        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-8 shadow-sm">
-          <h2 className="text-lg font-heading font-semibold text-gray-900 mb-4">Tips for Better AI Communication</h2>
-          <div className="grid md:grid-cols-2 gap-4 text-sm text-gray-700">
-            <div className="space-y-2">
-              <div className="flex items-start">
-                <span className="font-medium text-gray-900 mr-2">1.</span>
-                <span><strong>Give context:</strong> Be specific about what you want, why you want it, and relevant background</span>
-              </div>
-              <div className="flex items-start">
-                <span className="font-medium text-gray-900 mr-2">2.</span>
-                <span><strong>Show examples:</strong> Demonstrate the output style or format you're looking for</span>
-              </div>
-              <div className="flex items-start">
-                <span className="font-medium text-gray-900 mr-2">3.</span>
-                <span><strong>Specify constraints:</strong> Clearly define format, length, and other output requirements</span>
-              </div>
-            </div>
-            <div className="space-y-2">
-              <div className="flex items-start">
-                <span className="font-medium text-gray-900 mr-2">4.</span>
-                <span><strong>Break complex tasks into steps:</strong> Guide the AI through multi-step reasoning</span>
-              </div>
-              <div className="flex items-start">
-                <span className="font-medium text-gray-900 mr-2">5.</span>
-                <span><strong>Ask the AI to think first:</strong> Give space for the AI to work through its process</span>
-              </div>
-              <div className="flex items-start">
-                <span className="font-medium text-gray-900 mr-2">6.</span>
-                <span><strong>Define the AI's role or tone:</strong> Specify how you want the AI to communicate</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Show the basic prompt */}
+        
         <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-8 shadow-sm">
           <h2 className="text-lg font-heading font-semibold text-gray-900 mb-3">Your Starting Prompt</h2>
           {isLoading ? (
@@ -387,16 +367,22 @@ const RefinePage = () => {
                 <div className="space-y-3">
                   {improvementSuggestions.product.map((improvement) => (
                     <div key={improvement.id}>
-                      <label className="flex items-center cursor-pointer">
+                      <label className="flex items-start cursor-pointer">
                         <input
                           type="checkbox"
-                          checked={selectedImprovements.product.includes(improvement.id)}
+                          checked={!!improvementInputs[improvement.id]?.trim()}
                           onChange={() => toggleImprovement('product', improvement)}
-                          className="mr-3 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+                          className="mr-3 mt-1 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
                         />
                         <span className="text-gray-900">{improvement.text}</span>
                       </label>
 
+                      {visibleHints[improvement.id] && (
+                        <div className="ml-7 mt-2 p-3 bg-purple-50 border border-purple-200 rounded-md">
+                          <p className="text-sm text-purple-800">💡 <strong>Helpful hint:</strong></p>
+                          <p className="text-sm text-purple-700 mt-1 italic">{improvement.hint}</p>
+                        </div>
+                      )}
 
                       {activeInput === improvement.id && (
                         <div className="ml-7 mt-2">
@@ -441,16 +427,22 @@ const RefinePage = () => {
                 <div className="space-y-3">
                   {improvementSuggestions.process.map((improvement) => (
                     <div key={improvement.id}>
-                      <label className="flex items-center cursor-pointer">
+                      <label className="flex items-start cursor-pointer">
                         <input
                           type="checkbox"
-                          checked={selectedImprovements.process.includes(improvement.id)}
+                          checked={!!improvementInputs[improvement.id]?.trim()}
                           onChange={() => toggleImprovement('process', improvement)}
-                          className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                          className="mr-3 mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                         />
                         <span className="text-gray-900">{improvement.text}</span>
                       </label>
 
+                      {visibleHints[improvement.id] && (
+                        <div className="ml-7 mt-2 p-3 bg-green-50 border border-green-200 rounded-md">
+                          <p className="text-sm text-green-800">💡 <strong>Helpful hint:</strong></p>
+                          <p className="text-sm text-green-700 mt-1 italic">{improvement.hint}</p>
+                        </div>
+                      )}
 
                       {activeInput === improvement.id && (
                         <div className="ml-7 mt-2">
@@ -487,7 +479,7 @@ const RefinePage = () => {
               <div className="bg-purple-50 border border-purple-200 rounded-xl p-6">
                 <div className="flex items-center mb-4">
                   <MessageSquare className="w-5 h-5 text-purple-600 mr-2" />
-                  <h3 className="text-xl font-heading font-semibold text-purple-900">Performance: How We Work Together</h3>
+                  <h3 className="text-xl font-heading font-semibold text-purple-900">Performance: How We Work Together with AI</h3>
                 </div>
                 <p className="text-purple-800 mb-4">
                   Set expectations for collaboration, communication, and feedback.
@@ -495,16 +487,22 @@ const RefinePage = () => {
                 <div className="space-y-3">
                   {improvementSuggestions.performance.map((improvement) => (
                     <div key={improvement.id}>
-                      <label className="flex items-center cursor-pointer">
+                      <label className="flex items-start cursor-pointer">
                         <input
                           type="checkbox"
-                          checked={selectedImprovements.performance.includes(improvement.id)}
+                          checked={!!improvementInputs[improvement.id]?.trim()}
                           onChange={() => toggleImprovement('performance', improvement)}
-                          className="mr-3 h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                          className="mr-3 mt-1 h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
                         />
                         <span className="text-gray-900">{improvement.text}</span>
                       </label>
 
+                      {visibleHints[improvement.id] && (
+                        <div className="ml-7 mt-2 p-3 bg-blue-50 border border-blue-200 rounded-md">
+                          <p className="text-sm text-blue-800">💡 <strong>Helpful hint:</strong></p>
+                          <p className="text-sm text-blue-700 mt-1 italic">{improvement.hint}</p>
+                        </div>
+                      )}
 
                       {activeInput === improvement.id && (
                         <div className="ml-7 mt-2">
@@ -537,6 +535,16 @@ const RefinePage = () => {
                 </div>
               </div>
             </div>
+
+            {/* Enhanced Prompt Preview */}
+            {hasValidInputs && (
+              <div className="mt-8 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+                <h2 className="text-lg font-heading font-semibold text-gray-900 mb-3">Your Enhanced Prompt</h2>
+                <div className="bg-gray-50 border border-gray-100 rounded-lg p-4">
+                  <pre className="text-gray-700 whitespace-pre-wrap font-sans text-sm leading-relaxed">{generateImprovedPrompt()}</pre>
+                </div>
+              </div>
+            )}
 
             {/* Chat Section */}
             {hasAnySelections && hasValidInputs && (
