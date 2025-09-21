@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Copy, Download, Mail, CheckCircle } from 'lucide-react';
 
 interface DocumentPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default function DocumentPage({ params }: DocumentPageProps) {
@@ -12,11 +12,22 @@ export default function DocumentPage({ params }: DocumentPageProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [documentId, setDocumentId] = useState<string | null>(null);
 
   useEffect(() => {
+    const resolveParams = async () => {
+      const resolvedParams = await params;
+      setDocumentId(resolvedParams.id);
+    };
+    resolveParams();
+  }, [params]);
+
+  useEffect(() => {
+    if (!documentId) return;
+    
     const fetchDocument = async () => {
       try {
-        const response = await fetch(`/api/document?id=${params.id}`);
+        const response = await fetch(`/api/document?id=${documentId}`);
         const data = await response.json();
 
         if (!response.ok) {
@@ -32,7 +43,7 @@ export default function DocumentPage({ params }: DocumentPageProps) {
     };
 
     fetchDocument();
-  }, [params.id]);
+  }, [documentId]);
 
   const copyToClipboard = async () => {
     if (content) {
