@@ -47,21 +47,21 @@ export default function AnalysisPage() {
         body: JSON.stringify({
           messages: [{
             role: 'user',
-            content: `You're reviewing how this user worked with AI to create a document about human capabilities in AI fluency. Give them encouraging, simple feedback.
+            content: `You're reviewing how this user worked with AI to create a document about human capabilities in AI fluency. Provide balanced feedback that is both encouraging and constructive.
 
-Look for evidence of discernment in three areas:
+Analyze their discernment in three areas:
 - Product: Did they evaluate if AI responses were accurate and met their needs?
 - Process: Did they notice if AI's reasoning made sense or got off track?
 - Performance: Did they guide AI's communication style effectively?
 
-Write a brief, balanced assessment in plain text (no markdown, asterisks, or formatting). Be appreciative but honest. Structure it as:
+Write a brief assessment in plain text (no markdown, asterisks, or formatting). MUST include both strengths AND areas for improvement. Structure it as:
 
 1. Start with something positive they did well
 2. Mention 2-3 specific strengths you noticed
-3. Give 1-2 constructive areas for improvement (be specific about what they could do better)
-4. End encouragingly
+3. REQUIRED: Give 1-2 constructive areas for improvement with specific suggestions for what they could do differently next time
+4. End encouragingly about their growth potential
 
-Be honest about areas needing improvement while maintaining a supportive tone. Keep it conversational and under 150 words.
+You must identify at least one area where they could improve their discernment, even if their overall performance was strong. Be supportive but ensure growth-oriented feedback. Keep it conversational and under 150 words.
 
 Conversation:
 ${conversationText}`
