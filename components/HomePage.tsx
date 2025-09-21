@@ -10,7 +10,7 @@ export default function HomePage() {
       <div className="max-w-4xl w-full">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
+          <h1 className="text-4xl md:text-5xl font-heading font-semibold text-gray-900 mb-2">
             AI Fluency for School Leaders
           </h1>
         </div>
@@ -25,7 +25,7 @@ export default function HomePage() {
                   <Users className="w-6 h-6 text-blue-600" />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-1">AI can help with that!</h2>
+                  <h2 className="text-xl font-heading font-semibold text-gray-900 mb-1">AI can help with that!</h2>
                   <p className="text-gray-600">Practicing delegation</p>
                 </div>
               </div>
@@ -47,7 +47,7 @@ export default function HomePage() {
                   <MessageSquare className="w-6 h-6 text-green-600" />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-1">Communicate better</h2>
+                  <h2 className="text-xl font-heading font-semibold text-gray-900 mb-1">Communicate better</h2>
                   <p className="text-gray-600">Practicing description and some discernment</p>
                 </div>
               </div>

@@ -319,40 +319,40 @@ const RefinePage = () => {
       </div>
 
       <div className="mb-8 text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Let's Improve your AI communication</h1>
+        <h1 className="text-4xl font-heading font-semibold text-gray-900 mb-4">Let's Improve your AI communication</h1>
         <p className="text-xl text-gray-600">Let's work through the three parts of Description to enhance your AI communication - Product, Process and Performance</p>
       </div>
 
       <div className="max-w-4xl mx-auto">
         {/* Improvement Tips */}
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-8">
-          <h2 className="text-lg font-semibold text-blue-900 mb-4">Tips for Better AI Communication</h2>
-          <div className="grid md:grid-cols-2 gap-4 text-sm text-blue-800">
+        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-8 shadow-sm">
+          <h2 className="text-lg font-heading font-semibold text-gray-900 mb-4">Tips for Better AI Communication</h2>
+          <div className="grid md:grid-cols-2 gap-4 text-sm text-gray-700">
             <div className="space-y-2">
               <div className="flex items-start">
-                <span className="font-medium text-blue-900 mr-2">1.</span>
+                <span className="font-medium text-gray-900 mr-2">1.</span>
                 <span><strong>Give context:</strong> Be specific about what you want, why you want it, and relevant background</span>
               </div>
               <div className="flex items-start">
-                <span className="font-medium text-blue-900 mr-2">2.</span>
+                <span className="font-medium text-gray-900 mr-2">2.</span>
                 <span><strong>Show examples:</strong> Demonstrate the output style or format you're looking for</span>
               </div>
               <div className="flex items-start">
-                <span className="font-medium text-blue-900 mr-2">3.</span>
+                <span className="font-medium text-gray-900 mr-2">3.</span>
                 <span><strong>Specify constraints:</strong> Clearly define format, length, and other output requirements</span>
               </div>
             </div>
             <div className="space-y-2">
               <div className="flex items-start">
-                <span className="font-medium text-blue-900 mr-2">4.</span>
+                <span className="font-medium text-gray-900 mr-2">4.</span>
                 <span><strong>Break complex tasks into steps:</strong> Guide the AI through multi-step reasoning</span>
               </div>
               <div className="flex items-start">
-                <span className="font-medium text-blue-900 mr-2">5.</span>
+                <span className="font-medium text-gray-900 mr-2">5.</span>
                 <span><strong>Ask the AI to think first:</strong> Give space for the AI to work through its process</span>
               </div>
               <div className="flex items-start">
-                <span className="font-medium text-blue-900 mr-2">6.</span>
+                <span className="font-medium text-gray-900 mr-2">6.</span>
                 <span><strong>Define the AI's role or tone:</strong> Specify how you want the AI to communicate</span>
               </div>
             </div>
@@ -361,7 +361,7 @@ const RefinePage = () => {
 
         {/* Show the basic prompt */}
         <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-8 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 mb-3">Your Starting Prompt</h2>
+          <h2 className="text-lg font-heading font-semibold text-gray-900 mb-3">Your Starting Prompt</h2>
           {isLoading ? (
             <p className="text-gray-500">Loading your prompt...</p>
           ) : basicPrompt ? (
@@ -379,7 +379,7 @@ const RefinePage = () => {
               <div className="bg-green-50 border border-green-200 rounded-xl p-6">
                 <div className="flex items-center mb-4">
                   <Target className="w-5 h-5 text-green-600 mr-2" />
-                  <h3 className="text-xl font-semibold text-green-900">Product: What & Why</h3>
+                  <h3 className="text-xl font-heading font-semibold text-green-900">Product: What & Why</h3>
                 </div>
                 <p className="text-green-800 mb-4">
                   Define the context, purpose, and constraints for your request.
@@ -430,10 +430,10 @@ const RefinePage = () => {
               </div>
 
               {/* Process Section */}
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+              <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
                 <div className="flex items-center mb-4">
                   <Settings className="w-5 h-5 text-blue-600 mr-2" />
-                  <h3 className="text-xl font-semibold text-blue-900">Process: How</h3>
+                  <h3 className="text-xl font-heading font-semibold text-gray-900">Process: How</h3>
                 </div>
                 <p className="text-blue-800 mb-4">
                   Specify your preferred approach, methodology, and steps.
@@ -474,7 +474,7 @@ const RefinePage = () => {
                       )}
 
                       {selectedImprovements.process.includes(improvement.id) && improvementInputs[improvement.id] && activeInput !== improvement.id && (
-                        <div className="ml-8 p-2 bg-blue-50 rounded border border-blue-200">
+                        <div className="ml-8 p-2 bg-gray-50 rounded border border-gray-200">
                           <p className="text-sm text-blue-800">✓ {improvementInputs[improvement.id]}</p>
                         </div>
                       )}
@@ -487,7 +487,7 @@ const RefinePage = () => {
               <div className="bg-purple-50 border border-purple-200 rounded-xl p-6">
                 <div className="flex items-center mb-4">
                   <MessageSquare className="w-5 h-5 text-purple-600 mr-2" />
-                  <h3 className="text-xl font-semibold text-purple-900">Performance: How We Work Together</h3>
+                  <h3 className="text-xl font-heading font-semibold text-purple-900">Performance: How We Work Together</h3>
                 </div>
                 <p className="text-purple-800 mb-4">
                   Set expectations for collaboration, communication, and feedback.
@@ -543,7 +543,7 @@ const RefinePage = () => {
               <div className="mt-8 bg-gray-50 border border-gray-200 rounded-xl p-6">
                 <div className="flex items-center mb-4">
                   <MessageSquare className="w-5 h-5 text-gray-600 mr-2" />
-                  <h3 className="text-xl font-semibold text-gray-900">Test Your Enhanced Prompt</h3>
+                  <h3 className="text-xl font-heading font-semibold text-gray-900">Test Your Enhanced Prompt</h3>
                 </div>
                 <p className="text-gray-700 mb-4">
                   See how your enhanced prompt performs in a real conversation with Claude.
@@ -565,7 +565,7 @@ const RefinePage = () => {
                           key={index}
                           className={`p-3 rounded-xl ${
                             message.role === 'user'
-                              ? 'bg-blue-50 border border-blue-200 ml-12'
+                              ? 'bg-gray-50 border border-gray-200 ml-12'
                               : 'bg-gray-50 border border-gray-200 mr-12'
                           }`}
                         >

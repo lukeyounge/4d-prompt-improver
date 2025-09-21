@@ -285,15 +285,14 @@ const ShouldIDelegateGame: React.FC = () => {
             <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <Users className="w-8 h-8 text-blue-600" />
             </div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Should I Delegate This?</h1>
-            <p className="text-xl text-gray-600 mb-2">AI Decision Experience for School Leaders</p>
-            <p className="text-gray-500">Learn when to delegate tasks to AI versus keeping them human-driven</p>
+            <h1 className="text-4xl font-heading font-semibold text-gray-900 mb-4">AI can help with that!</h1>
+            <p className="text-xl text-gray-600">Practicing delegation</p>
           </div>
 
           {/* Content */}
           <div className="max-w-4xl mx-auto space-y-6">
             <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4 md:mb-6">How This Works</h2>
+              <h2 className="text-2xl font-heading font-semibold text-gray-900 mb-4 md:mb-6">How This Works</h2>
               <div className="space-y-4 md:grid md:grid-cols-3 md:gap-6 md:space-y-0">
                 <div className="flex items-start space-x-3">
                   <div className="w-8 h-8 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -351,14 +350,14 @@ const ShouldIDelegateGame: React.FC = () => {
             <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <Trophy className="w-8 h-8 text-green-600" />
             </div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Experience Complete!</h1>
+            <h1 className="text-4xl font-heading font-semibold text-gray-900 mb-4">Experience Complete!</h1>
             <p className="text-xl text-gray-600">Great work on the delegation challenges</p>
         </div>
 
           {/* Content */}
           <div className="max-w-4xl mx-auto space-y-6">
           {/* Score Card */}
-          <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 md:p-8 text-center">
+          <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 text-center shadow-sm">
             <div className="text-4xl md:text-5xl lg:text-6xl font-bold text-blue-600 mb-1">{score}</div>
             <div className="text-sm md:text-base text-gray-600 mb-1">out of {maxScore} points</div>
             <div className="text-lg md:text-xl lg:text-2xl font-semibold text-gray-800">{percentage}% Accuracy</div>
@@ -366,7 +365,7 @@ const ShouldIDelegateGame: React.FC = () => {
 
           {/* Key Insights */}
           <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 md:mb-6">Key Delegation Insights</h2>
+            <h2 className="text-2xl font-heading font-semibold text-gray-900 mb-4 md:mb-6">Key Delegation Insights</h2>
             <div className="space-y-4 md:grid md:grid-cols-3 md:gap-6 md:space-y-0">
               <div className="flex items-start space-x-3">
                 <div className="w-8 h-8 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -398,41 +397,13 @@ const ShouldIDelegateGame: React.FC = () => {
             </div>
           </div>
 
-          <div className="space-y-4">
-            <button
-              onClick={resetGame}
-              className="w-full bg-blue-600 text-white py-4 px-6 rounded-xl font-medium flex items-center justify-center space-x-2 hover:bg-blue-700 transition-all duration-200 shadow-sm hover:shadow-md"
-              aria-label="Start the experience again from the beginning"
-            >
-              <RotateCcw className="w-5 h-5" />
-              <span>Experience Again</span>
-            </button>
-
-            {/* Discreet continue button */}
+          <div className="text-center">
             <Link
-              href="/prompts"
-              className="block text-center text-sm text-gray-400 hover:text-gray-600 transition-colors py-2"
+              href="/"
+              className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-all duration-200 shadow-sm hover:shadow-md"
             >
-              Continue to Description →
+              <span>Go back to home</span>
             </Link>
-
-            {/* Navigation to AI Fluency Tool */}
-            <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-              <div className="flex items-center mb-3">
-                <MessageSquare className="w-5 h-5 text-blue-600 mr-2" />
-                <h3 className="text-lg font-semibold text-gray-900">Ready for Advanced AI Prompting?</h3>
-              </div>
-              <p className="text-gray-600 mb-4">
-                Now that you understand AI delegation, learn how to craft powerful prompts using the 4D Framework.
-              </p>
-              <Link
-                href="/prompts"
-                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all duration-200 shadow-sm hover:shadow-md"
-              >
-                <span>Try the AI Fluency Tool</span>
-                <MessageSquare className="w-4 h-4 ml-2" />
-              </Link>
-            </div>
           </div>
           </div>
         </div>
@@ -472,8 +443,8 @@ const ShouldIDelegateGame: React.FC = () => {
                 <Users className="w-5 h-5 text-blue-600" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Delegation Game</h1>
-                <p className="text-gray-600 text-sm">Round {round} • Scenario {currentScenario + 1} of {scenarios.length}</p>
+                <h1 className="text-2xl font-heading font-semibold text-gray-900">AI can help with this?</h1>
+                <p className="text-gray-600 text-sm">Scenario {currentScenario + 1} of {scenarios.length}</p>
               </div>
             </div>
             <div className="text-center md:text-right">
