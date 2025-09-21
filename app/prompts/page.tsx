@@ -8,13 +8,13 @@ export default function PromptsPage() {
   const [basicPrompt, setBasicPrompt] = useState('');
 
   const examplePrompts = [
-    "How do I get teachers who are nervous or apathetic about AI to get on board?",
-    "I need to create a vision for AI use in my school",
-    "Give me a one page briefing for parents in AI in education",
-    "How do I manage the excitement around AI in a cautious way?",
-    "How do I explain plagiarism and responsible AI use to students?",
-    "What questions should I ask when evaluating an AI tool for my school?",
-    "What examples from other schools could inspire our own AI strategy?"
+    "One page essential human capabilities in AI fluency document",
+    "Write something about what teachers do",
+    "Make a document about teacher capabilities",
+    "Create a policy about teachers and AI",
+    "Write about human skills in education",
+    "Give me information about teacher strengths",
+    "Create a summary about educators"
   ];
 
   const handleContinue = () => {
@@ -90,26 +90,35 @@ export default function PromptsPage() {
           </div>
         </div>
 
-        {/* Focus Question */}
+        {/* Exercise Overview */}
         <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-6 shadow-sm">
-          <h2 className="text-xl font-heading font-semibold text-gray-900 mb-4">How can I navigate AI implementation at my school?</h2>
-          <p className="text-gray-700">
-            As you explore how to better communicate with AI, let's use this question as a focus.
+          <h2 className="text-xl font-heading font-semibold text-gray-900 mb-4">Today's Description Exercise</h2>
+          <p className="text-gray-700 mb-4">
+            We're going to practice Description by creating something practical you can use at your school. Ordinarily you would come up with your own project to work on with AI, but for this exercise we want you to create a specific document.
           </p>
+          <div className="bg-gray-50 border border-gray-100 rounded-xl p-4">
+            <h3 className="font-semibold text-gray-900 mb-2">Your Task: "Essential Human Capabilities in AI Fluency"</h3>
+            <p className="text-gray-700 mb-3">
+              Create a one-page document that outlines the essential human capabilities teachers bring to AI partnerships. This will be a practical tool for board presentations, parent communications, and teacher coaching conversations about the irreplaceable human element in education.
+            </p>
+            <p className="text-sm text-gray-600">
+              You'll experience all three types of Description as you refine a basic prompt into something that produces a professional, ready-to-use document for your leadership context.
+            </p>
+          </div>
         </div>
 
-        {/* Prompt Input */}
+        
         <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-6 shadow-sm">
           <h2 className="text-xl font-heading font-semibold text-gray-900 mb-4">Start with Your Basic Prompt</h2>
           <p className="text-gray-600 mb-4">
-            Think about an issue you are having around AI implementation at your school (or an issue you envisage). Write a simple instruction or question to AI and then we'll do some enhancing.
+            Write a simple, basic prompt to create the "Essential Human Capabilities in AI Fluency" document. Keep it intentionally simple for now - we'll enhance it together using the three types of Description.
           </p>
 
           <textarea
             value={basicPrompt}
             onChange={(e) => setBasicPrompt(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Enter your basic prompt here... (e.g., 'Help me write a lesson plan')"
+            placeholder="Try something basic like: 'One page essential human capabilities in AI fluency document'"
             className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
             rows={4}
           />
@@ -127,21 +136,6 @@ export default function PromptsPage() {
           </div>
         </div>
 
-        {/* Example Prompts */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-          <h3 className="text-lg font-heading font-semibold text-gray-900 mb-4">Need inspiration? Try these examples:</h3>
-          <div className="space-y-2">
-            {examplePrompts.map((example, index) => (
-              <button
-                key={index}
-                onClick={() => handleExampleClick(example)}
-                className="w-full text-left px-4 py-2 bg-white border border-gray-200 rounded-xl hover:border-gray-300 hover:bg-gray-50 transition-all duration-200"
-              >
-                <span className="text-gray-700">"{example}"</span>
-              </button>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );
