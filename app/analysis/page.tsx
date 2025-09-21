@@ -45,19 +45,24 @@ export default function AnalysisPage() {
         body: JSON.stringify({
           messages: [{
             role: 'user',
-            content: `Please analyze this conversation between a user and an AI assistant working on prompt improvement. Focus on:
+            content: `You're reviewing how this user worked with AI to create a document about human capabilities in AI fluency. Give them encouraging, simple feedback.
 
-1. **Collaboration Quality**: How well did the AI and user work together?
-2. **Prompt Evolution**: How did the prompt improve through the conversation?
-3. **AI Behavior**: What patterns do you notice in how the AI responded?
-4. **User Engagement**: How effectively did the user guide the AI?
-5. **Learning Insights**: What can be learned about effective AI collaboration?
+Look for evidence of discernment in three areas:
+- Product: Did they evaluate if AI responses were accurate and met their needs?
+- Process: Did they notice if AI's reasoning made sense or got off track?
+- Performance: Did they guide AI's communication style effectively?
 
-Here's the conversation:
+Write a brief, appreciative assessment in plain text (no markdown, asterisks, or formatting). Structure it as:
 
-${conversationText}
+1. Start with something positive they did well
+2. Mention 2-3 specific strengths you noticed
+3. Suggest 1-2 gentle improvements for next time
+4. End encouragingly
 
-Please provide a thoughtful analysis covering these areas.`
+Keep it conversational, supportive, and under 150 words.
+
+Conversation:
+${conversationText}`
           }],
           enhancedPrompt: null
         })
@@ -86,8 +91,8 @@ Please provide a thoughtful analysis covering these areas.`
       </div>
 
       <div className="mb-8 text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Conversation Analysis</h1>
-        <p className="text-xl text-gray-600">Analyze your AI collaboration conversation</p>
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">Discernment Assessment</h1>
+        <p className="text-xl text-gray-600">Evaluate how well you demonstrated discernment during your AI interaction</p>
       </div>
 
       <div className="max-w-4xl mx-auto space-y-6">
@@ -131,7 +136,7 @@ Please provide a thoughtful analysis covering these areas.`
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center">
               <BarChart3 className="w-5 h-5 text-gray-600 mr-2" />
-              <h2 className="text-lg font-semibold text-gray-900">Conversation Analysis</h2>
+              <h2 className="text-lg font-semibold text-gray-900">Discernment Assessment</h2>
             </div>
 
             <button
@@ -140,20 +145,20 @@ Please provide a thoughtful analysis covering these areas.`
               className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
             >
               <Brain className="w-4 h-4 mr-2" />
-              {isAnalyzing ? 'Analyzing...' : 'Analyze Conversation'}
+              {isAnalyzing ? 'Assessing...' : 'Assess Discernment'}
             </button>
           </div>
 
           {isAnalyzing && (
             <div className="text-center py-8">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600">Claude is analyzing your conversation...</p>
+              <p className="text-gray-600">Analyzing how you worked with AI...</p>
             </div>
           )}
 
           {analysis && (
             <div className="bg-white border border-gray-200 rounded-lg p-6 mt-4">
-              <h3 className="font-semibold text-gray-900 mb-3">Analysis Results</h3>
+              <h3 className="font-semibold text-gray-900 mb-3">Your Discernment Assessment</h3>
               <div className="prose prose-gray max-w-none">
                 <div className="whitespace-pre-wrap text-gray-700">{analysis}</div>
               </div>
@@ -162,7 +167,7 @@ Please provide a thoughtful analysis covering these areas.`
 
           {!analysis && !isAnalyzing && (
             <p className="text-gray-600">
-              Click \\\"Analyze Conversation\\\" to get insights about your AI collaboration.
+              Click "Assess Discernment" to evaluate how well you demonstrated discernment skills during your AI interaction.
             </p>
           )}
         </div>

@@ -69,7 +69,7 @@ const RefinePage = () => {
       {
         id: 'order_operations',
         text: 'Order of Operations: Are there specific issues it needs to address, and should it be done in a particular order?',
-        hint: 'Example: "1) What makes teachers unique, 2) How they work with AI, 3) Tips for school leaders."'
+        hint: 'Example: "Start by listing 5-7 specific human capabilities. Then explain why each one matters. Finally, give me 2-3 talking points for each capability."'
       },
       {
         id: 'analysis_techniques',
@@ -556,6 +556,13 @@ const RefinePage = () => {
                 <p className="text-gray-700 mb-4">
                   See how your enhanced prompt performs in a real conversation with Claude.
                 </p>
+                
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+                  <p className="text-blue-800 text-sm">
+                    💡 <strong>Practice Discernment:</strong> As you chat, evaluate Claude's responses. Do they meet your needs? Are they accurate? Is the communication style right? This practice will help you become more discerning in future AI interactions.
+                  </p>
+                </div>
+                
                 {messages.length === 0 && !isChattingWithClaude && (
                   <button
                     onClick={startChatWithClaude}
@@ -636,7 +643,7 @@ const RefinePage = () => {
                 {messages.length > 0 && (
                   <div className="mt-4 bg-green-50 border border-green-200 rounded-xl p-3">
                     <p className="text-green-800 text-sm">
-                      Great! You\\'re testing how your enhanced prompt performs. When you\\'re ready, move to the analysis phase to review your conversation.
+                      Great! You're testing how your enhanced prompt performs. When you're ready, move to the analysis phase to review your conversation.
                     </p>
                   </div>
                 )}
